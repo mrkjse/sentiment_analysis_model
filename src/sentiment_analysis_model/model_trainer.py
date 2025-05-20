@@ -1,13 +1,19 @@
 import logging
 
+
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
+from scipy.stats import randint, uniform
+
+from utils import timeit
 
 logger = logging.getLogger(__name__)
 
-def split_data(X, y, test_size=0.2, random_state=42):
+def split_data(X, y, test_size=0.2, random_state=27):
+
+    logger.info("Splitting the dataset...")
 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=test_size, random_state=random_state
@@ -16,12 +22,17 @@ def split_data(X, y, test_size=0.2, random_state=42):
 
 
 def create_pipeline(n_estimators=100, max_depth=None, max_features='sqrt'):
-    
-    logger.info("Creating TF-IDF vectorizer and RandomForest model...")
+    """
+    Create scikit-learn pipeline with TF-IDF and RandomForest.
+    Returns a GridSearchCV object for parameter optimization.
+    """
+    from sklearn.model_selection import RandomizedSearchCV
+    from sklearn.pipeline import Pipeline
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.ensemble import RandomForestClassifier
 
-    # Pipeline from scikit-learn combines two steps in the machine learning workflow: 
-    # text vectorization (TF-IDF) and classification (RandomForest).
-    return Pipeline([
+    # Create the base pipeline 
+    base_pipeline = Pipeline([
         ('tfidf', TfidfVectorizer(max_features=5000, ngram_range=(1, 2))),
         ('clf', RandomForestClassifier(
             n_estimators=n_estimators, 
@@ -31,15 +42,55 @@ def create_pipeline(n_estimators=100, max_depth=None, max_features='sqrt'):
             n_jobs=-1
         ))
     ])
-
-
-def train_model(X_train, y_train, pipeline=None, model_params=None):
     
+    # Define parameter distributions for RandomizedSearchCV
+    param_distributions = {
+        # TF-IDF parameters
+        'tfidf__max_features': randint(1000, 15000),
+        'tfidf__ngram_range': [(1, 1), (1, 2), (1, 3)],
+        'tfidf__min_df': randint(1, 5),
+        'tfidf__max_df': uniform(0.8, 0.15),  # Range from 0.8 to 0.95
+        
+        # RandomForest parameters
+        'clf__n_estimators': randint(50, 500),
+        'clf__max_depth': [None],
+        'clf__max_features': ['sqrt'],
+        'clf__min_samples_split': randint(2, 20),
+        'clf__min_samples_leaf': randint(1, 10),
+        'clf__bootstrap': [True, False],
+        'clf__class_weight': [None, 'balanced']
+    }
+    
+    logger.info("Creating RandomizedSearchCV with TF-IDF vectorizer and RandomForest model...")
+    
+    # Return RandomizedSearchCV object
+    return RandomizedSearchCV(
+        base_pipeline,
+        param_distributions=param_distributions,
+        n_iter=50,              
+        cv=5,                   
+        scoring='accuracy',     
+        verbose=1,
+        random_state=27,        
+        n_jobs=-1               
+    )
+
+@timeit
+def train_model(X_train, y_train, pipeline=None, model_params=None):
+    """
+    Train a sentiment analysis model using GridSearchCV to find optimal parameters.
+    """
     if pipeline is None:
         if model_params is None:
             model_params = {}
         pipeline = create_pipeline(**model_params)
     
-    logger.info("Training model...")
+    logger.info("Training model with GridSearchCV...")
     pipeline.fit(X_train, y_train)
-    return pipeline
+    
+    # Log the best parameters found by GridSearchCV
+    logger.info(f"Best parameters found: {pipeline.best_params_}")
+    logger.info(f"Best cross-validation score: {pipeline.best_score_:.4f}")
+    
+    # Return the best estimator
+    return pipeline.best_estimator_

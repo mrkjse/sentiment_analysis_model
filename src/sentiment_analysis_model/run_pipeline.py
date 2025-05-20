@@ -5,6 +5,7 @@ from utils import setup_logging
 from data_loader import load_data, prepare_data
 from text_preprocessor import preprocess_data
 from model_trainer import split_data, train_model
+from model_evaluator import evaluate_model
 
 
 def run_pipeline(data_path, output_dir, n_estimators=100, max_depth=None, max_features='sqrt', test_size=0.2):
@@ -60,6 +61,10 @@ def run_pipeline(data_path, output_dir, n_estimators=100, max_depth=None, max_fe
     
 
     # Step 6: Evaluate model
+    logger.info("Step 6: Evaluating model")
+    results = evaluate_model(model, X_test, y_test)
+
+    print(results)
 
     
     # Step 7: Save model
@@ -69,7 +74,12 @@ if __name__ == "__main__":
     
     print(os.getcwd())
 
-    data_path = "src/data/Books_10k.json"
+    parser = argparse.ArgumentParser(description='Run Review Sentiment Analysis Pipeline')
+    parser.add_argument('--data', required=True, help='Path to the training data JSON')
+    parser.add_argument('--output-dir', default='model', help='Directory to save the model')
+    args = parser.parse_args()
+
+    data_path = "src/data/reviews.json"
     output_dir = "src/out/"
     
-    run_pipeline(data_path=data_path, output_dir=output_dir)
+    run_pipeline(data_path=args.data_path, output_dir=args.output_dir)

@@ -6,7 +6,7 @@ from nltk.tokenize import word_tokenize
 
 import pandas as pd
 import logging
-from utils import download_nltk_resources
+from utils import download_nltk_resources, timeit
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +32,7 @@ class TextPreprocessor:
         tokens = [self.lemmatizer.lemmatize(word) for word in tokens if word not in self.stop_words]
         return ' '.join(tokens)
 
+@timeit
 def preprocess_data(df, preprocessor=None):
 
     if preprocessor is None:
