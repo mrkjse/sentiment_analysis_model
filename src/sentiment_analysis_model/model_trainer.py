@@ -1,5 +1,6 @@
 import logging
-
+import os
+import joblib
 
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -7,11 +8,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
 from scipy.stats import randint, uniform
 
-from utils import timeit
+from utils import timeit, create_directory
 
 logger = logging.getLogger(__name__)
 
-def split_data(X, y, test_size=0.2, random_state=27):
+def split_data(X, y, test_size=0.2, random_state=43):
 
     logger.info("Splitting the dataset...")
 
@@ -71,7 +72,7 @@ def create_pipeline(n_estimators=100, max_depth=None, max_features='sqrt'):
         cv=5,                   
         scoring='accuracy',     
         verbose=1,
-        random_state=27,        
+        random_state=43,        
         n_jobs=-1               
     )
 
@@ -94,3 +95,20 @@ def train_model(X_train, y_train, pipeline=None, model_params=None):
     
     # Return the best estimator
     return pipeline.best_estimator_
+
+
+def save_model(model, preprocessor, output_dir):
+    """Save model and preprocessor to disk."""
+    create_directory(output_dir)
+    
+    # Save model
+    model_path = os.path.join(output_dir, "model.joblib")
+    joblib.dump(model, model_path)
+    logger.info(f"Model saved to {model_path}")
+    
+    # Save preprocessor
+    preprocessor_path = os.path.join(output_dir, "preprocessor.joblib")
+    joblib.dump(preprocessor, preprocessor_path)
+    logger.info(f"Preprocessor saved to {preprocessor_path}")
+    
+    return model_path, preprocessor_path

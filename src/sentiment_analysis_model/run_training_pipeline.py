@@ -4,7 +4,7 @@ import os
 from utils import setup_logging
 from data_loader import load_data, prepare_data
 from text_preprocessor import preprocess_data
-from model_trainer import split_data, train_model
+from model_trainer import split_data, train_model, save_model
 from model_evaluator import evaluate_model
 
 
@@ -64,22 +64,29 @@ def run_pipeline(data_path, output_dir, n_estimators=100, max_depth=None, max_fe
     logger.info("Step 6: Evaluating model")
     results = evaluate_model(model, X_test, y_test)
 
-    print(results)
 
-    
     # Step 7: Save model
+    logger.info("Step 7: Saving model")
+    model_path, preprocessor_path = save_model(model, preprocessor, output_dir)
 
+
+    logger.info("Pipeline completed successfully!")
+    logger.info(f"Model saved to: {model_path}")
+    logger.info(f"Model accuracy: {results['accuracy']:.4f}")
+    
+    return {
+        'model_path': model_path,
+        'preprocessor_path': preprocessor_path,
+        'evaluation_results': results
+    }
 
 if __name__ == "__main__":
     
-    print(os.getcwd())
-
+    # python src/sentiment_analysis_model/run_training_pipeline.py --data src/data/reviews.json --output-dir src/out/
     parser = argparse.ArgumentParser(description='Run Review Sentiment Analysis Pipeline')
     parser.add_argument('--data', required=True, help='Path to the training data JSON')
     parser.add_argument('--output-dir', default='model', help='Directory to save the model')
     args = parser.parse_args()
-
-    data_path = "src/data/reviews.json"
-    output_dir = "src/out/"
     
-    run_pipeline(data_path=args.data_path, output_dir=args.output_dir)
+    results = run_pipeline(data_path=args.data, output_dir=args.output_dir)
+
