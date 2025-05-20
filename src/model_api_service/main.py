@@ -5,11 +5,9 @@ import uvicorn
 
 from pathlib import Path
 
-# Use absolute imports instead of relative imports
 from model_api_service.sentiment_analysis_request import SentimentRequest
 from model_api_service.sentiment_analysis_response import SentimentResponse
 
-# Add the correct paths for imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Import from the sentiment_analysis_model package
@@ -23,6 +21,7 @@ PREPROCESSOR_PATH = os.path.join(base_dir, "out", "preprocessor.joblib")
 
 sentiment_analyzer = None
 
+# Load SentimentAnalyser upon startup
 @app.on_event("startup")
 async def startup_event():
     global sentiment_analyzer

@@ -1,19 +1,28 @@
-# src/Dockerfile.api
 FROM python:3.10-slim
 
-WORKDIR src
+WORKDIR /app
 
-# Copy the source code
-COPY . .
+# Copy application code
+COPY --from=training /app/model_api_service ./model_api_service/
+COPY --from=training /app/sentiment_analysis_model ./sentiment_analysis_model/
+COPY --from=training /app/out ./out/
 
 # Install dependencies
-# If you're using poetry, we'll install it and use it to set up the dependencies
 RUN pip install --no-cache-dir poetry && \
-    poetry config virtualenvs.create false && \
-    poetry install --no-dev
+    poetry config virtualenvs.in-project true && \
+    poetry install --without dev --no-root
 
-# Expose the port that FastAPI runs on
+# Download NLTK data
+RUN poetry run python -c "import nltk; nltk.download('punkt'); nltk.download('wordnet'); nltk.download('stopwords'); nltk.download('punkt_tab');"
+
+# Set volume mount point for model files
+VOLUME /app/out
+
+# Set environment variables
+ENV MODEL_PATH=/app/out/model.joblib
+ENV PREPROCESSOR_PATH=/app/out/preprocessor.joblib
+
 EXPOSE 8000
 
-# Set the entrypoint to run the API service
-ENTRYPOINT ["python", "-m", "model_api_service.main"]
+# Run the API service
+CMD ["poetry", "run", "python", "-m", "model_api_service.main"]

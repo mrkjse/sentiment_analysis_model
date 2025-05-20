@@ -105,7 +105,7 @@ def train_model(X_train, y_train, pipeline=None, model_params=None):
         pipeline = create_pipeline_docker(**model_params)
     
     # logger.info("Training model with RandomizedSearchCV...")
-    # logger.info("Training basic RandomForestClassifier...")
+    logger.info("Training basic RandomForestClassifier...")
     pipeline.fit(X_train, y_train)
     
     # Log the best parameters found by RandomizedSearchCV

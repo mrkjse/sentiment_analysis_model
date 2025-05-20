@@ -36,6 +36,11 @@ docker-compose up --build
 curl -X POST "http://localhost:8000/predict" \
   -H "Content-Type: application/json" \
   -d '{"text": "the book was okay"}'
+
+
+chmod +x src/run.sh
+./run.sh
+
 ```
 
 ### Advantages of This Approach:
