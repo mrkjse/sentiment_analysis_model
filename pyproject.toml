@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "sentiment-analysis-model"
+version = "0.1.0"
+description = ""
+authors = ["Mark Jose <mrk.jse@gmail.com>"]
+readme = "README.md"
+packages = [{include = "sentiment_analysis_model", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+torch = "*"
+pandas = "*"
+numpy = "*"
+scikit-learn = "*"
+nltk = "*"
+transformers = "*"
+flask = "*"
+joblib = "*"
+gunicorn = "*"
+uvicorn = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+flake8 = "*"
+black = "*"
+jupyter = "*"
+matplotlib = "*"
+seaborn = "*"
+locust = "*"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
