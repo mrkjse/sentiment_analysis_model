@@ -82,8 +82,10 @@ def run_pipeline(data_path, output_dir, n_estimators=100, max_depth=None, max_fe
 
 if __name__ == "__main__":
     
+    # Parse command line arguemnts
+    # Sample command:
     # python src/sentiment_analysis_model/run_training_pipeline.py --data src/data/reviews.json --output-dir src/out/
-    parser = argparse.ArgumentParser(description='Run Review Sentiment Analysis Pipeline')
+    parser = argparse.ArgumentParser(description='Run Review Sentiment Analysis Training Pipeline')
     parser.add_argument('--data', required=True, help='Path to the training data JSON')
     parser.add_argument('--output-dir', default='model', help='Directory to save the model')
     args = parser.parse_args()
