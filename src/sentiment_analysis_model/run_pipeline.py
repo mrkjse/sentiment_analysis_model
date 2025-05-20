@@ -3,6 +3,8 @@ import logging
 import os
 from utils import setup_logging
 from data_loader import load_data, prepare_data
+from text_preprocessor import preprocess_data
+from model_trainer import split_data
 
 def run_pipeline(data_path, output_dir, n_estimators=100, max_depth=None, max_features='sqrt', test_size=0.2):
     logger = logging.getLogger(__name__)
@@ -38,9 +40,17 @@ def run_pipeline(data_path, output_dir, n_estimators=100, max_depth=None, max_fe
     
     # Step 3: Preprocess text
     logger.info("Step 3: Preprocessing text")
+    df, preprocessor = preprocess_data(df)
+    df.to_csv(os.path.join(intermediates_dir, "03_preprocessed_data.csv"), index=False)
+
     
     # Step 4: Split data
     logger.info("Step 4: Splitting data")
+    X_train, X_test, y_train, y_test = split_data(
+        df['processed_review'].values,
+        df['sentiment'].values,
+        test_size=test_size
+    )
     
     # Step 5: Train model
     logger.info("Step 5: Training model")

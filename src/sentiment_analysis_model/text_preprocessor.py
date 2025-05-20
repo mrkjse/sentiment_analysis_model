@@ -32,13 +32,27 @@ class TextPreprocessor:
         tokens = [self.lemmatizer.lemmatize(word) for word in tokens if word not in self.stop_words]
         return ' '.join(tokens)
 
-def preprocess_data(df):
+def preprocess_data(df, preprocessor=None):
 
-    preprocessor = TextPreprocessor()
-    preprocessed_tokens = preprocessor.preprocess('My interest is mostly on deep and reinforcement learning, so the review is more pertinent to Step 6.')
-    print(preprocessed_tokens)
+    if preprocessor is None:
+        preprocessor = TextPreprocessor()
+
+    # Apply preprocess() function over the review column of the dataframe
+    df['processed_review'] = df['review_text'].apply(preprocessor.preprocess)
+
+    return df, preprocessor 
 
 
 if __name__ == "__main__":
 
-    preprocess_data(None)
+    reviews = [
+        {'review_text': 'What a HUGE disappointment.  They have three basic \"sweet cream bases\".... best, good,'},
+        {'review_text': 'Poorly written and hard to place a timeline as the author rambles in and out of accounts of incidence.'},
+        {'review_text': '"Man Turns Personal Failures Into Indictment of Black and Brown Children.'}
+    ]
+    
+    df = pd.DataFrame(reviews)
+
+    preprocess_data(df)
+
+    print(df.head(3))
