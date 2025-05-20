@@ -1,8 +1,8 @@
 import argparse
 import os
 import logging
-from utils import setup_logging
-from sentiment_analyser import SentimentAnalyser
+from sentiment_analysis_model.utils import setup_logging
+from sentiment_analysis_model.sentiment_analyser import SentimentAnalyser
 
 
 if __name__ == "__main__":

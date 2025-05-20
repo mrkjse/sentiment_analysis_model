@@ -8,7 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
 from scipy.stats import randint, uniform
 
-from utils import timeit, create_directory
+from sentiment_analysis_model.utils import timeit, create_directory
 
 logger = logging.getLogger(__name__)
 

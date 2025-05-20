@@ -6,7 +6,7 @@ from nltk.tokenize import word_tokenize
 
 import pandas as pd
 import logging
-from utils import download_nltk_resources, timeit
+from sentiment_analysis_model.utils import download_nltk_resources, timeit
 
 logger = logging.getLogger(__name__)
 

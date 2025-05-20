@@ -1,11 +1,11 @@
 import argparse
 import logging
 import os
-from utils import setup_logging
-from data_loader import load_data, prepare_data
-from text_preprocessor import preprocess_data
-from model_trainer import split_data, train_model, save_model
-from model_evaluator import evaluate_model
+from sentiment_analysis_model.utils import setup_logging
+from sentiment_analysis_model.data_loader import load_data, prepare_data
+from sentiment_analysis_model.text_preprocessor import preprocess_data
+from sentiment_analysis_model.model_trainer import split_data, train_model, save_model
+from sentiment_analysis_model.model_evaluator import evaluate_model
 
 
 def run_pipeline(data_path, output_dir, n_estimators=100, max_depth=None, max_features='sqrt', test_size=0.2):

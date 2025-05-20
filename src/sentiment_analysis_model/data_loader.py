@@ -1,7 +1,7 @@
 import json
 import pandas as pd
 import logging
-from utils import convert_rating_to_sentiment
+from sentiment_analysis_model.utils import convert_rating_to_sentiment
 
 logger = logging.getLogger(__name__)
 
