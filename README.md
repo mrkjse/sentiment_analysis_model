@@ -41,6 +41,13 @@ curl -X POST "http://localhost:8000/predict" \
 chmod +x src/run.sh
 ./run.sh
 
+docker ps -a
+docker stop aeff01f3924f <container-id>
+docker stop bfb57a9b2896 <container-id>
+
+
+docker start bfb57a9b2896
+
 ```
 
 ### Advantages of This Approach:
