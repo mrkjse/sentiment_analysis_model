@@ -4,7 +4,8 @@ import os
 from utils import setup_logging
 from data_loader import load_data, prepare_data
 from text_preprocessor import preprocess_data
-from model_trainer import split_data
+from model_trainer import split_data, train_model
+
 
 def run_pipeline(data_path, output_dir, n_estimators=100, max_depth=None, max_features='sqrt', test_size=0.2):
     logger = logging.getLogger(__name__)
@@ -54,6 +55,9 @@ def run_pipeline(data_path, output_dir, n_estimators=100, max_depth=None, max_fe
     
     # Step 5: Train model
     logger.info("Step 5: Training model")
+    model_params = {'n_estimators': n_estimators, 'max_depth': max_depth, 'max_features': max_features}
+    model = train_model(X_train, y_train, model_params=model_params)
+    
 
     # Step 6: Evaluate model
 
