@@ -1,0 +1,29 @@
+# src/docker-compose.yml
+version: '3.8'
+
+services:
+  training:
+    build:
+      context: .
+      dockerfile: Dockerfile.training
+    volumes:
+      - ./out:/app/out
+    networks:
+      - sentiment-network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./out:/app/out
+    depends_on:
+      - training
+    networks:
+      - sentiment-network
+
+networks:
+  sentiment-network:
+    driver: bridge

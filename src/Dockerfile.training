@@ -1,0 +1,15 @@
+FROM python:3.10-slim
+
+WORKDIR src
+
+# Copy the source code
+COPY . .
+
+# Install dependencies
+# If you're using poetry, we'll install it and use it to set up the dependencies
+RUN pip install --no-cache-dir poetry && \
+    poetry config virtualenvs.create false && \
+    poetry install --no-dev
+
+# Set the entrypoint to run the training pipeline
+ENTRYPOINT ["python", "-m", "sentiment_analysis_model.run_training_pipeline", "--data", "data/reviews.json", "--output-dir", "out/"]

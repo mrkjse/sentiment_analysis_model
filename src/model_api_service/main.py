@@ -12,7 +12,7 @@ from model_api_service.sentiment_analysis_response import SentimentResponse
 # Add the correct paths for imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Now import from the sentiment_analysis_model package
+# Import from the sentiment_analysis_model package
 from sentiment_analysis_model.sentiment_analyser import SentimentAnalyser
 
 app = FastAPI(title="Sentiment Analysis API")
@@ -33,7 +33,6 @@ async def startup_event():
         )
     except Exception as e:
         print(f"Error loading model: {e}")
-        # Continue startup but the health check will fail
 
 
 @app.post("/predict", response_model=SentimentResponse)
@@ -57,6 +56,7 @@ async def health_check():
     if sentiment_analyzer is None:
         raise HTTPException(status_code=503, detail="Model not loaded")
     return {"status": "healthy"}
+
 
 if __name__ == "__main__":
     print(f"Current working directory: {os.getcwd()}")

@@ -1,0 +1,19 @@
+# src/Dockerfile.api
+FROM python:3.10-slim
+
+WORKDIR src
+
+# Copy the source code
+COPY . .
+
+# Install dependencies
+# If you're using poetry, we'll install it and use it to set up the dependencies
+RUN pip install --no-cache-dir poetry && \
+    poetry config virtualenvs.create false && \
+    poetry install --no-dev
+
+# Expose the port that FastAPI runs on
+EXPOSE 8000
+
+# Set the entrypoint to run the API service
+ENTRYPOINT ["python", "-m", "model_api_service.main"]
