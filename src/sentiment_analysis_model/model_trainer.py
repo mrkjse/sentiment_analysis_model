@@ -127,7 +127,7 @@ def save_model(model, preprocessor, output_dir):
     joblib.dump(model, model_path)
     logger.info(f"Model saved to {model_path}")
     
-    # Save preprocessor
+    # Save preprocessor for use in inference
     preprocessor_path = os.path.join(output_dir, "preprocessor.joblib")
     joblib.dump(preprocessor, preprocessor_path)
     logger.info(f"Preprocessor saved to {preprocessor_path}")

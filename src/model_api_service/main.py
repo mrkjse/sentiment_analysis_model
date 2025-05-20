@@ -3,8 +3,6 @@ import sys
 import os
 import uvicorn
 
-from pathlib import Path
-
 from model_api_service.sentiment_analysis_request import SentimentRequest
 from model_api_service.sentiment_analysis_response import SentimentResponse
 
@@ -19,14 +17,14 @@ base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_PATH = os.path.join(base_dir, "out", "model.joblib")
 PREPROCESSOR_PATH = os.path.join(base_dir, "out", "preprocessor.joblib")
 
-sentiment_analyzer = None
+sentiment_analyser = None
 
 # Load SentimentAnalyser upon startup
 @app.on_event("startup")
 async def startup_event():
-    global sentiment_analyzer
+    global sentiment_analyser
     try:
-        sentiment_analyzer = SentimentAnalyser(
+        sentiment_analyser = SentimentAnalyser(
             model_path=MODEL_PATH,
             preprocessor_path=PREPROCESSOR_PATH
         )
@@ -36,11 +34,11 @@ async def startup_event():
 
 @app.post("/predict", response_model=SentimentResponse)
 async def predict_sentiment(request: SentimentRequest):
-    if sentiment_analyzer is None:
+    if sentiment_analyser is None:
         raise HTTPException(status_code=503, detail="Model not loaded")
     
     try:
-        result = sentiment_analyzer.predict(request.text)
+        result = sentiment_analyser.predict(request.text)
         return {
             "review": request.text,
             "sentiment": result["sentiment"],

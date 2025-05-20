@@ -39,6 +39,7 @@ def preprocess_data(df, preprocessor=None):
         preprocessor = TextPreprocessor()
 
     # Apply preprocess() function over the review column of the dataframe
+    # This will produce relevant tokens per review_text
     df['processed_review'] = df['review_text'].apply(preprocessor.preprocess)
 
     return df, preprocessor 

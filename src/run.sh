@@ -7,6 +7,7 @@ docker compose up training
 if [ $? -eq 0 ]; then
   echo "Training completed successfully."
   echo "Starting API service..."
+  # Build and run API service
   docker compose up -d api
   echo "API service is running on http://localhost:8000"
 else
