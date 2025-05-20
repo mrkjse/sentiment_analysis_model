@@ -6,7 +6,11 @@ python -m sentiment_analysis_model.run_training_pipeline --data data/reviews.jso
 python -m sentiment_analysis_model.run_prediction --model out/model.joblib --preprocessor out/preprocessor.joblib --text 'the book was okay'  
 
 python -m model_api_service.main
+```
 
+## FastAPI commands
+
+```
 curl -X POST "http://localhost:8000/predict" \
   -H "Content-Type: application/json" \
   -d '{"text": "the book was okay"}'
@@ -22,10 +26,21 @@ curl -X POST "http://localhost:8000/predict" \
 
 curl http://localhost:8000/health
 
-# Run just the training
-docker-compose up --build training
+```
 
-# Run just the API (assuming training has already been done)
-docker-compose up --build api
+## Docker commands
 
 ```
+docker-compose up --build
+
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "the book was okay"}'
+```
+
+### Advantages of This Approach:
+
+- More Control: You decide when to run the training process.
+- Flexibility: You can run the training with different parameters without rebuilding the container.
+- Reusability: You can use the same training container for different training runs.
+- Debugging: It's easier to debug issues when running commands manually.
