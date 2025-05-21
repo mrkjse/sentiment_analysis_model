@@ -29,6 +29,15 @@ curl -X POST "http://localhost:8000/predict" \
   -H "Content-Type: application/json" \
   -d '{"text": "it was extremely gratifying!!! I would want to read it again and again!!"}'
 
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "the book was so so"}'
+
+
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "i love the story so much!"}'
+
 curl http://localhost:8000/health
 
 curl http://localhost:8000/stats
