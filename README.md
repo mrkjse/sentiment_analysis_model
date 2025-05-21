@@ -1,11 +1,55 @@
+# Book Review Sentiment Analyser
+
+Description here
+
+
+## Sentiment Analyser Model
+
+### Dataset
+
+
+### Model Used
+
+
+### Training Pipeline
+
+
+### Prediction Pipeline
+
+
+### Model monitoring
+
+
+## Sentiment Analyser API Service
+
+### API services
+
+#### POST predict
+
+#### GET stats
+
+#### GET health
+
+### API monitoring
+
+### Monitoring latency
+
+## How to run locally
+
+
+### Training and Prediction Service
+
+
+### Starting fastAPI service
+
+
+## How to run via Docker
+
 ```
-cd src
 rm -rf .venv
 poetry env use python3.10
 poetry config virtualenvs.in-project true --local && \
 poetry install
-eval $(poetry env activate)
-
 poetry run python -m sentiment_analysis_model.run_training_pipeline --data data/reviews.json --output-dir out/
 
 poetry run python -m sentiment_analysis_model.run_prediction --model out/model.joblib --preprocessor out/preprocessor.joblib --text 'the book was okay'  
@@ -129,3 +173,30 @@ sentiment-analysis-model-py3.10 markjose@Mac  ~/sentiment_analysis_model  
 {"last_updated":"2025-05-21 14:07:06","total_requests":15,"sentiment_counts":{"Positive":3,"Neutral":3,"Negative":9},"avg_response_time_ms":43.1326707204183,"p99_response_time_ms":65.78390121459961}%          
 
 ```
+
+## ML Pipeline
+
+This would be my recommended ML Pipeline structure:
+
+- Data collection and storage
+- Pipeline orchestration with Airflow
+- Data preprocessing
+- Feature engineering and storage
+- Training workflow
+- Model evaluation and testing
+- Model registry and deployment
+- Monitoring and feedback loops
+
+## Things I did to improve latency
+
+- Created a lightweight version of the model (from RandomisedSearchCV to RandomForestClassifier with pruned down hyperparameters)
+- Implemented lrucache (Least Recently Used Cache) that helps on memory management
+- Streamlined inference text preprocessing (removed lemmatisation of words) without sacrificing model accuracy
+
+## How to further improve the solution
+
+1. Use a more lightweight model (ie distilled BERT or XGBoost)
+2. Improve preprocessing (find nltk alternative)
+3. Introduce threading and parallelism on some operations (eg I/O ops)
+4. Introduce more in-memory caching 
+5. Use asynchronous logging 
