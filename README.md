@@ -126,6 +126,8 @@ curl http://localhost:8000/stats
 
 
 sentiment-analysis-model-py3.10 markjose@Mac  ~/sentiment_analysis_model   master ±  curl http://localhost:8000/stats
-{"last_updated":"2025-05-21 14:07:06","total_requests":15,"sentiment_counts":{"Positive":3,"Neutral":3,"Negative":9},"avg_response_time_ms":43.1326707204183,"p99_response_time_ms":65.78390121459961}%          
+{"last_updated":"2025-05-21 14:07:06","total_requests":15,"sentiment_counts":{"Positive":3,"Neutral":3,"Negative":9},"avg_response_time_ms":43.1326707204183,"p99_response_time_ms":65.78390121459961}%   
+
+Sample
 
 ```
