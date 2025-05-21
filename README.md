@@ -42,8 +42,28 @@ Description here
 
 ### Starting fastAPI service
 
-
 ## How to run via Docker
+
+Execute the script run.sh
+
+```
+# from root
+./run.sh
+```
+
+
+## Unit Tests
+
+### Unit Tests for Sentiment Analyser Model
+
+```
+poetry run python -m unittest tests.test_sentiment_analyser   
+```
+
+### Unit Tests for Sentiment Analyser API Service
+
+
+
 
 ```
 rm -rf .venv
