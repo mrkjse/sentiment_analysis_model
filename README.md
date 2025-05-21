@@ -55,6 +55,28 @@ curl -X POST "http://localhost:8000/predict" \
   -d '{"text": "the book was okay"}'
 
 
+
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "i love LOVE love it so muchhh"}'
+
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "i dont love it or hate it."}'
+
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "i might read it again."}'
+
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "it was alright i suppose."}'
+
+
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "the book was perfect!!!"}'
+
 chmod +x src/run.sh
 ./run.sh
 
@@ -75,3 +97,35 @@ docker build --no-cache -t training:latest -f Dockerfile.training .
 - Flexibility: You can run the training with different parameters without rebuilding the container.
 - Reusability: You can use the same training container for different training runs.
 - Debugging: It's easier to debug issues when running commands manually.
+
+```
+
+
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "the book was so so"}'
+{"review":"the book was so so","sentiment":"Negative","confidence":{"Negative":0.8571080031080028,"Neutral":0.14289199689199683,"Positive":0.0}}
+
+
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Clumsy, Poorly Written Novel With Cardboard Caricatures of Pirates"}'
+
+
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "This book, I thought, had promise. Boy was I wrong. "}'
+
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "This book was okay. I dont feel anything about it strongly."}'
+
+
+curl http://localhost:8000/stats
+{"last_updated":"2025-05-21 13:57:47","total_requests":1,"sentiment_counts":{"Positive":0,"Neutral":0,"Negative":1},"avg_response_time_ms":65.59157371520996,"p99_response_time_ms":65.59157371520996}%       
+
+
+sentiment-analysis-model-py3.10 markjose@Mac  ~/sentiment_analysis_model   master ±  curl http://localhost:8000/stats
+{"last_updated":"2025-05-21 14:07:06","total_requests":15,"sentiment_counts":{"Positive":3,"Neutral":3,"Negative":9},"avg_response_time_ms":43.1326707204183,"p99_response_time_ms":65.78390121459961}%          
+
+```
