@@ -43,7 +43,6 @@ async def startup_event():
         logger.info("Sentiment analyser loaded successfully")
 
     except Exception as e:
-        raise e
         logger.error(f"Error loading model: {e}")
 
 
@@ -83,13 +82,13 @@ async def predict_sentiment(request: SentimentRequest):
             "confidence": result["confidence"]
         }
     except Exception as e:
-        raise e
-        #raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
+        # raise e
+        raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
 
 
 @app.get("/health")
 async def health_check():
-    if sentiment_analyzer is None:
+    if sentiment_analyser is None:
         raise HTTPException(status_code=503, detail="Model not loaded")
     return {"status": "healthy"}
 
@@ -97,13 +96,13 @@ async def health_check():
 @app.get("/stats")
 async def get_stats():
     """Get basic API usage statistics."""
-    if logger is None:
+    if api_logger is None:
         raise HTTPException(status_code=503, detail="Logger not initialized")
     
     try:
         # Check if stats file exists
-        stats_file = os.path.join(logger.log_dir, "basic_stats.json")
-        logger.info("Looking for basic_stats.json in {logger.log_dir}")
+        stats_file = os.path.join(api_logger.log_dir, "basic_stats.json")
+        logger.info("Looking for basic_stats.json in {api_logger.log_dir}")
 
         if not os.path.exists(stats_file):
             return {"message": "No stats available yet"}

@@ -18,9 +18,7 @@ def setup_logging():
 def download_nltk_resources():
     """Download necessary NLTK resources."""
     try:
-        nltk.download('punkt')
         nltk.download('stopwords')
-        nltk.download('wordnet')
         nltk.download('punkt_tab')
     except Exception as e:
         logger = logging.getLogger(__name__)

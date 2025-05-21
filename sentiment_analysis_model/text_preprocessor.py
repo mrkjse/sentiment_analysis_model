@@ -29,7 +29,7 @@ class TextPreprocessor:
         tokens = word_tokenize(text)
 
         # Remove stopwords and lemmatisation
-        tokens = [self.lemmatizer.lemmatize(word) for word in tokens if word not in self.stop_words]
+        tokens =  [word for word in tokens if word not in self.stop_words]
         return ' '.join(tokens)
 
 @timeit

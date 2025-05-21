@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import json
 import time
 from datetime import datetime
@@ -24,7 +25,6 @@ class APILogger:
         """Log an API request with its prediction and response time."""
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
-        # Create log entry
         log_entry = {
             "timestamp": timestamp,
             "text": request_text[:50] + "..." if len(request_text) > 50 else request_text,
@@ -32,7 +32,6 @@ class APILogger:
             "response_time_ms": response_time * 1000  # Convert to milliseconds
         }
         
-        # Add to memory
         self.recent_requests.append(log_entry)
         self.response_times.append(response_time * 1000)  # Store in ms
         
@@ -48,16 +47,13 @@ class APILogger:
                 with open(self.log_file, 'r') as f:
                     existing_logs = json.load(f)
             
-            # Add new log and limit size
+            # Add new log
             updated_logs = existing_logs + [log_entry]
-            if len(updated_logs) > 100:
-                updated_logs = updated_logs[-100:]  # Keep only last 100
             
-            # Write to file
             with open(self.log_file, 'w') as f:
                 json.dump(updated_logs, f, indent=2)
-                
-            # Update basic stats
+            
+            # Update basic stats regarding response times and latency
             self._update_stats()
             
         except Exception as e:
@@ -81,7 +77,8 @@ class APILogger:
                 "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "total_requests": len(self.recent_requests),
                 "sentiment_counts": sentiment_counts,
-                "avg_response_time_ms": avg_time
+                "avg_response_time_ms": avg_time,
+                "p99_response_time_ms": np.percentile(self.response_times, 99) if self.response_times else 0
             }
             
             # Save to file

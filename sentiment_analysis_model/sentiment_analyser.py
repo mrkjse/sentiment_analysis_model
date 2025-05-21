@@ -4,6 +4,7 @@ import json
 import pandas as pd
 import logging
 from sentiment_analysis_model.text_preprocessor import TextPreprocessor
+from functools import lru_cache
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +33,7 @@ class SentimentAnalyser:
             2: "Positive"
         }
 
-    
+    @lru_cache(maxsize=1000)
     def predict(self, review_text):
 
         # Preprocess the text

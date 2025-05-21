@@ -77,11 +77,11 @@ def create_pipeline(n_estimators=100, max_depth=None, max_features='sqrt'):
     )
 
 
-def create_pipeline_docker(n_estimators=100, max_depth=None, max_features='sqrt'):
+def create_pipeline_docker(n_estimators=50, max_depth=10, max_features='sqrt'):
     """Create scikit-learn pipeline with TF-IDF and RandomForest."""
     logger.info("Creating TF-IDF vectorizer and RandomForest model...")
     return Pipeline([
-        ('tfidf', TfidfVectorizer(max_features=5000, ngram_range=(1, 2))),
+        ('tfidf', TfidfVectorizer(max_features=2000, ngram_range=(1, 2))),
         ('clf', RandomForestClassifier(
             n_estimators=n_estimators, 
             max_depth=max_depth, 

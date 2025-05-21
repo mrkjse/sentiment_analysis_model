@@ -18,5 +18,15 @@
       "Neutral": 0.5961666666666666,
       "Positive": 0.047142857142857146
     }
+  },
+  {
+    "timestamp": "2025-05-21 14:40:48",
+    "text": "the book was okay",
+    "prediction": "Neutral",
+    "confidence": {
+      "Negative": 0.20732142857142857,
+      "Neutral": 0.7726785714285714,
+      "Positive": 0.02
+    }
   }
 ]

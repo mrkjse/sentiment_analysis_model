@@ -85,11 +85,10 @@ class ModelMonitor:
         }
         
         self.inference_logs.append(inference_entry)
-        
+
         # Save to file
         with open(self.inference_file, 'w') as f:
             json.dump(self.inference_logs, f, indent=2)
         
         return inference_entry
-    
    
