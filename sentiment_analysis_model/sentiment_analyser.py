@@ -36,16 +36,13 @@ class SentimentAnalyser:
     @lru_cache(maxsize=1000)
     def predict(self, review_text):
 
-        # Preprocess the text
         processed_text = self.preprocessor.preprocess(review_text)
 
-        # Make prediction
         prediction_proba = self.model.predict_proba([processed_text])[0]
         prediction = self.model.predict([processed_text])[0]
         
         sentiment = self.sentiment_map[prediction]
         
-        # Get confidence scores
         confidence = {
             'Negative': float(prediction_proba[0]),
             'Neutral': float(prediction_proba[1]),

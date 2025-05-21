@@ -77,7 +77,7 @@ def create_pipeline(n_estimators=100, max_depth=None, max_features='sqrt'):
     )
 
 
-def create_pipeline_docker(n_estimators=50, max_depth=10, max_features='sqrt'):
+def create_pipeline_lightweight(n_estimators=50, max_depth=10, max_features='sqrt'):
     """Create scikit-learn pipeline with TF-IDF and RandomForest."""
     logger.info("Creating TF-IDF vectorizer and RandomForest model...")
     return Pipeline([
@@ -102,18 +102,11 @@ def train_model(X_train, y_train, pipeline=None, model_params=None):
         
         # Create a lightweight version of the model due to resource constraints
         # This will compromise the quality of the model...but need it to run Docker
-        pipeline = create_pipeline_docker(**model_params)
+        pipeline = create_pipeline_lightweight(**model_params)
     
     # logger.info("Training model with RandomizedSearchCV...")
     logger.info("Training basic RandomForestClassifier...")
     pipeline.fit(X_train, y_train)
-    
-    # Log the best parameters found by RandomizedSearchCV
-    # logger.info(f"Best parameters found: {pipeline.best_params_}")
-    # logger.info(f"Best cross-validation score: {pipeline.best_score_:.4f}")
-    
-    # # Return the best estimator (for RandomizedSearchCV)
-    # return pipeline.best_estimator_
 
     return pipeline
 

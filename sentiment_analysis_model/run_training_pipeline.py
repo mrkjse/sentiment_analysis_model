@@ -78,12 +78,10 @@ def run_pipeline(data_path, output_dir, n_estimators=100, max_depth=None, max_fe
             'test_size': test_size
         }
     )
-    
 
     # Step 7: Save model
     logger.info("Step 7: Saving model")
     model_path, preprocessor_path = save_model(model, preprocessor, output_dir)
-
 
     logger.info("Pipeline completed successfully!")
     logger.info(f"Model saved to: {model_path}")
