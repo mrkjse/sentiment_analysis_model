@@ -1,0 +1,22 @@
+[
+  {
+    "timestamp": "2025-05-21 11:28:46",
+    "text": "the book was okay",
+    "prediction": "Neutral",
+    "confidence": {
+      "Negative": 0.35669047619047617,
+      "Neutral": 0.5961666666666666,
+      "Positive": 0.047142857142857146
+    }
+  },
+  {
+    "timestamp": "2025-05-21 13:51:41",
+    "text": "the book was okay",
+    "prediction": "Neutral",
+    "confidence": {
+      "Negative": 0.35669047619047617,
+      "Neutral": 0.5961666666666666,
+      "Positive": 0.047142857142857146
+    }
+  }
+]

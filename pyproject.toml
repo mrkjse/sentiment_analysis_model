@@ -1,0 +1,69 @@
+[tool.poetry]
+name = "sentiment-analysis-model"
+version = "0.1.0"
+description = "Sentiment analysis model with API service"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+packages = [{include = "sentiment_analysis_model"}, {include = "model_api_service"}]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+scikit-learn = "^1.3.0"
+pandas = "^2.1.0"
+numpy = "^1.24.0"
+joblib = "^1.3.0"
+fastapi = "^0.103.0"
+uvicorn = "^0.23.0"
+pydantic = "^2.3.0"
+matplotlib = "^3.7.0"
+seaborn = "^0.12.0"
+nltk = "^3.8.0"
+spacy = "^3.6.0"
+python-dotenv = "^1.0.0"
+loguru = "^0.7.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+black = "^23.7.0"
+isort = "^5.12.0"
+flake8 = "^6.1.0"
+mypy = "^1.5.0"
+pre-commit = "^3.3.0"
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^7.1.0"
+sphinx-rtd-theme = "^1.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ["py310", "py311", "py312"]
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["src/tests"]
+python_files = "test_*.py"
+pythonpath = [".", "src"]
+
+[tool.poetry.scripts]
+train = "sentiment_analysis_model.run_training_pipeline:main"
+predict = "sentiment_analysis_model.run_prediction:main"
+api = "model_api_service.main:start_server"

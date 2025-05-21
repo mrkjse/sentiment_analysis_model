@@ -1,11 +1,16 @@
 ```
+cd src
+rm -rf .venv
+poetry env use python3.10
+poetry config virtualenvs.in-project true --local && \
+poetry install
 eval $(poetry env activate)
 
-python -m sentiment_analysis_model.run_training_pipeline --data data/reviews.json --output-dir out/
+poetry run python -m sentiment_analysis_model.run_training_pipeline --data data/reviews.json --output-dir out/
 
-python -m sentiment_analysis_model.run_prediction --model out/model.joblib --preprocessor out/preprocessor.joblib --text 'the book was okay'  
+poetry run python -m sentiment_analysis_model.run_prediction --model out/model.joblib --preprocessor out/preprocessor.joblib --text 'the book was okay'  
 
-python -m model_api_service.main
+poetry run python -m model_api_service.main
 ```
 
 ## FastAPI commands
@@ -26,11 +31,14 @@ curl -X POST "http://localhost:8000/predict" \
 
 curl http://localhost:8000/health
 
+curl http://localhost:8000/stats
+
 ```
 
 ## Docker commands
 
 ```
+cd src
 docker-compose up --build
 
 curl -X POST "http://localhost:8000/predict" \
@@ -47,6 +55,8 @@ docker stop bfb57a9b2896 <container-id>
 
 
 docker start bfb57a9b2896
+
+docker build --no-cache -t training:latest -f Dockerfile.training .
 
 ```
 

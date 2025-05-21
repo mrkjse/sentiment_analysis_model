@@ -1,0 +1,10 @@
+{
+  "last_updated": "2025-05-21 14:08:46",
+  "total_requests": 1,
+  "sentiment_counts": {
+    "Positive": 0,
+    "Neutral": 0,
+    "Negative": 1
+  },
+  "avg_response_time_ms": 1520.010232925415
+}

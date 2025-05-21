@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  training:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.training
+    volumes:
+      - model_data:/app/out
+    restart: "no"  # Run once and exit
+
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.api
+    ports:
+      - "8000:8000"
+    volumes:
+      - model_data:/app/out
+    depends_on:
+      - training
+    restart: always
+
+volumes:
+  model_data:  # Named volume to share between containers

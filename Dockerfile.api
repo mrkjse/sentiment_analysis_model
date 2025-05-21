@@ -1,0 +1,27 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# IMPORTANT! Copy application code directly
+COPY . . 
+# Note: We don't copy the "out" directory as it will be mounted as a volume
+
+# Install dependencies
+RUN pip install --no-cache-dir poetry && \
+    poetry config virtualenvs.in-project true && \
+    poetry install --without dev --no-root
+
+# Download NLTK data
+RUN poetry run python -c "import nltk; nltk.download('punkt'); nltk.download('wordnet'); nltk.download('stopwords'); nltk.download('punkt_tab');"
+
+# Set volume mount point for model files
+VOLUME /app/out
+
+# Set environment variables
+ENV MODEL_PATH=/app/out/model.joblib
+ENV PREPROCESSOR_PATH=/app/out/preprocessor.joblib
+
+EXPOSE 8000
+
+# Run the API service
+CMD ["poetry", "run", "python", "-m", "model_api_service.main"]
