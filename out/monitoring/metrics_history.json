@@ -370,5 +370,67 @@
       "max_features": "sqrt",
       "test_size": 0.2
     }
+  },
+  {
+    "timestamp": "2025-05-21 20:12:14",
+    "metrics": {
+      "accuracy": 0.6905,
+      "classification_report": {
+        "0": {
+          "precision": 0.7065803667745415,
+          "recall": 0.795868772782503,
+          "f1-score": 0.7485714285714286,
+          "support": 823.0
+        },
+        "1": {
+          "precision": 0.7222222222222222,
+          "recall": 0.13402061855670103,
+          "f1-score": 0.22608695652173913,
+          "support": 388.0
+        },
+        "2": {
+          "precision": 0.6733266733266733,
+          "recall": 0.8542458808618505,
+          "f1-score": 0.753072625698324,
+          "support": 789.0
+        },
+        "accuracy": 0.6905,
+        "macro avg": {
+          "precision": 0.7007097541078123,
+          "recall": 0.5947117574003515,
+          "f1-score": 0.5759103369304972,
+          "support": 2000.0
+        },
+        "weighted avg": {
+          "precision": 0.6964963046662076,
+          "recall": 0.6905,
+          "f1-score": 0.648985163260349,
+          "support": 2000.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          655,
+          15,
+          153
+        ],
+        [
+          162,
+          52,
+          174
+        ],
+        [
+          110,
+          5,
+          674
+        ]
+      ]
+    },
+    "parameters": {
+      "n_estimators": 100,
+      "max_depth": null,
+      "max_features": "sqrt",
+      "test_size": 0.2
+    }
   }
 ]

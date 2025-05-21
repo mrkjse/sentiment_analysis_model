@@ -100,5 +100,23 @@
     "text": "reading it felt absolutely terrible",
     "prediction": "Negative",
     "response_time_ms": 42.7861213684082
+  },
+  {
+    "timestamp": "2025-05-21 20:13:08",
+    "text": "the book was okay",
+    "prediction": "Neutral",
+    "response_time_ms": 42.51384735107422
+  },
+  {
+    "timestamp": "2025-05-21 20:13:42",
+    "text": "i love the story so much!",
+    "prediction": "Positive",
+    "response_time_ms": 31.36610984802246
+  },
+  {
+    "timestamp": "2025-05-21 20:13:55",
+    "text": "reading it felt absolutely terrible",
+    "prediction": "Negative",
+    "response_time_ms": 28.733015060424805
   }
 ]
