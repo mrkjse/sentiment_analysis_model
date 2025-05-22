@@ -1,10 +1,15 @@
-#!/bin/bash
+# This is a unified bash script that will run the whole app.
+# 
+# Steps
+# 1. Run the training pipeline and produce the model
+# 2. Start the API server
+
 
 # Run the training container first
 echo "Starting training container..."
 docker compose up training
 
-# Check if training completed successfully
+# Check if the training pipeline was completed successfully
 if [ $? -eq 0 ]; then
   echo "Training completed successfully."
   echo "Starting API service..."
