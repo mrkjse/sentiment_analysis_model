@@ -100,7 +100,7 @@ def create_pipeline_lightweight(n_estimators=50, max_depth=10, max_features='sqr
 
     logger.info("Creating TF-IDF vectorizer and RandomForest model...")
     return Pipeline([
-        ('tfidf', TfidfVectorizer(max_features=2000, ngram_range=(1, 2))),
+        ('tfidf', TfidfVectorizer(max_features=2000, ngram_range=(1, 2))), # Bigrams work best in this case
         ('clf', RandomForestClassifier(
             n_estimators=n_estimators, 
             max_depth=max_depth, 

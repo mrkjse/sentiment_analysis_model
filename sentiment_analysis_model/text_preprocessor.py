@@ -55,6 +55,14 @@ def preprocess_data(df, preprocessor=None):
 
     # Apply preprocess() function over the review column of the dataframe
     # This will produce relevant tokens per review_text
-    df['processed_review'] = df['review_text'].apply(preprocessor.preprocess)
+    # df['processed_review'] = df['review_text'].apply(preprocessor.preprocess)
+
+    # Experiment: Improve the review text by adding the title in the training data
+    df['enhanced_review_text'] = df.apply(
+        lambda row: f"{row['title']} {row['review_text']}" if pd.notna(row['title']) else row['review_text'],
+        axis=1
+    )
+
+    df['processed_review'] = df['enhanced_review_text'].apply(preprocessor.preprocess)
 
     return df, preprocessor 

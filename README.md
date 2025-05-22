@@ -228,7 +228,17 @@ Example:
 
 ### Model Used
 
-The model used is a scikit-learn pipeline with TF-IDF and RandomForestClassifier.
+The model used is a scikit-learn pipeline with TF-IDF and RandomForestClassifier. I tried incorporating the review text to train the model and the accuracy at best was `69%`, but when I included the title in the training, I was able to bump the accuracy to `72%`.
+
+```bash
+# Best accuracy I could make so far
+2025-05-22 16:48:55,886 - __main__ - INFO - Step 7: Saving model
+2025-05-22 16:48:55,935 - sentiment_analysis_model.model_trainer - INFO - Model saved to out/model.joblib
+2025-05-22 16:48:55,936 - sentiment_analysis_model.model_trainer - INFO - Preprocessor saved to out/preprocessor.joblib
+2025-05-22 16:48:55,936 - __main__ - INFO - Pipeline completed successfully!
+2025-05-22 16:48:55,936 - __main__ - INFO - Model saved to: out/model.joblib
+2025-05-22 16:48:55,936 - __main__ - INFO - Model accuracy: 0.7165
+```
 
 ### Model monitoring
 
@@ -254,13 +264,13 @@ This loads the trained model and performs the inference. The only parameter need
 # Sample POST request
 curl -X POST "http://localhost:8000/predict" \
   -H "Content-Type: application/json" \
-  -d '{"text": "it was extremely gratifying!!! I would want to read it again and again!!"}'
+  -d '{"text": "i love LOVE love it so muchhh"}'
 ```
 The response includes the predicted sentiment and the corresponding confidences.
 
 ``` json
 # API response
-{"review":"it was extremely gratifying!!! I would want to read it again and again!!","sentiment":"Negative","confidence":{"Negative":0.74,"Neutral":0.06,"Positive":0.2}}
+{"review":"i love LOVE love it so muchhh","sentiment":"Positive","confidence":{"Negative":0.01,"Neutral":0.006666666666666666,"Positive":0.9833333333333333}}%                                                             
 ```
 
 #### GET health

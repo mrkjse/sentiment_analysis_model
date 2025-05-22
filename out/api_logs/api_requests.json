@@ -124,5 +124,17 @@
     "text": "the book was so so",
     "prediction": "Negative",
     "response_time_ms": 35.21370887756348
+  },
+  {
+    "timestamp": "2025-05-22 16:53:02",
+    "text": "it was extremely gratifying!!! I would want to rea...",
+    "prediction": "Negative",
+    "response_time_ms": 43.55192184448242
+  },
+  {
+    "timestamp": "2025-05-22 16:53:41",
+    "text": "i love LOVE love it so muchhh",
+    "prediction": "Positive",
+    "response_time_ms": 32.6230525970459
   }
 ]
