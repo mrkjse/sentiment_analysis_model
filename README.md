@@ -228,7 +228,7 @@ Example:
 
 ### Model Used
 
-The model used is a scikit-learn pipeline with TF-IDF and RandomForestClassifier. I tried incorporating the review text to train the model and the accuracy at best was `69%`, but when I included the title in the training, I was able to bump the accuracy to `72%`.
+The model used is a scikit-learn pipeline with TF-IDF and RandomForestClassifier. I tried incorporating the `review text` to train the model and the accuracy at best was `69%`, but when I included the `title` in the training, I was able to bump the accuracy to `72%`.
 
 ```bash
 # Best accuracy I could make so far
