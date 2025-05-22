@@ -386,10 +386,10 @@ Now, the basic stats show that the 99p latency has been less than 50ms:
 
 ## Extending this Solution
 
-1. Use a more lightweight (and explore better) models (ie distilled BERT or XGBoost)
-2. Improve preprocessing (find nltk alternative)
-3. Introduce threading and parallelism on some operations (eg I/O ops; but I still have to look into this...)
-4. Introduce in-memory caching (still have to look into this...)
-5. Store the training artefacts (models, logs) in a PostgreSQL database or in a Cloud bucket
-6. Implement MLflow for a more comprehensive model tracking 
-7. Serve the API service and the training pipeline as a Cloud Function (or in a Cloud Kubernetes Engine)
+1. Use a more lightweight (and explore better) models (ie distilled BERT or XGBoost) and improve preprocessing (find nltk alternative)
+2. Introduce Cloud services (AWS Lambda, S3 buckets, GCP Vertex AI, GCS, Cloud Function)
+3. Improve on scalability by introducing more async tasks or batch processing for high-load situations
+4. Implement MLflow for a more comprehensive training tracking (model and artefact registry)
+5. Introduce CI/CD (add Github Actions to build images and push it to Docker registry, deploy to cloud environment, etc)
+6. Enhance monitoring and logging by adding other relevant metrics like data drift, data quality or performance and using a more comprehensive Python library (eg Evidently)
+7. Improve API security (HTTPS) and add authentication layer (JWT)
