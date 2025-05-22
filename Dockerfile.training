@@ -4,17 +4,19 @@ WORKDIR /app
 
 COPY . .
 
+# Sanity check...
 CMD ['pwd']
 
+# Install the dependencies.
 RUN pip install --no-cache-dir poetry psutil && \
     poetry config virtualenvs.in-project true && \
     poetry install --without dev --no-root
 
-# Download NLTK data
+# Download NLTK data beforehand so that the container can locate them for text processing.
 RUN poetry run python -c "import nltk; nltk.download('punkt'); nltk.download('wordnet'); nltk.download('stopwords'); nltk.download('punkt_tab');"
 
-# Set volume mount point for output
+# Set volume mount point for output. We need to make sure this volume can be accessed by both training and API containers.
 VOLUME /app/out
 
-# Command to run training
+# Command to run the training pipeline.
 CMD ["poetry", "run", "python", "-m", "sentiment_analysis_model.run_training_pipeline", "--data", "data/reviews.json", "--output-dir", "/app/out"]
