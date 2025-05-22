@@ -361,7 +361,7 @@ The things I did to improve the latency are:
 
 ## Extending this Solution
 
-1. Use a more lightweight model (ie distilled BERT or XGBoost)
+1. Use a more lightweight (and explore better) models (ie distilled BERT or XGBoost)
 2. Improve preprocessing (find nltk alternative)
 3. Introduce threading and parallelism on some operations (eg I/O ops)
 4. Introduce more in-memory caching 
