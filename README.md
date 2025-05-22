@@ -2,7 +2,7 @@
 
 This is a classifier that categorises review sentences into positive, neutral, and negative. The model is also being served via a FastAPI Inference service that allows a text to be classified with its corresponding confidences passed as well. 
 
-## Running Locally
+## Running locally
 
 The solution is Dockerised. There are two Docker containers provided:
 
@@ -226,7 +226,7 @@ Example:
 {"rating": 3.0, "title": null, "text": "Average quality but good value for the price.", "asin": "B07H2VKSS8", "user_id": "AVNRT6QFR73JK", "verified_purchase": false}
 ```
 
-### Model Used
+### Model used
 
 The model used is a scikit-learn pipeline with TF-IDF and RandomForestClassifier. I tried incorporating the `review text` to train the model and the accuracy at best was `69%`, but when I included the `title` in the training, I was able to bump the accuracy to `72%`.
 
@@ -253,9 +253,7 @@ The following information is logged upon model training:
 
 I created a slim version of a fastAPI service to serve model predictions via API. 
 
-### API services
-
-#### POST predict
+### POST predict
 
 This loads the trained model and performs the inference. The only parameter needed is `text`, which is a collection of text to be classified as negative, neutral, or positive.
 
@@ -273,7 +271,7 @@ The response includes the predicted sentiment and the corresponding confidences.
 {"review":"i love LOVE love it so muchhh","sentiment":"Positive","confidence":{"Negative":0.01,"Neutral":0.006666666666666666,"Positive":0.9833333333333333}}%                                                             
 ```
 
-#### GET health
+### GET health
 
 This API service retrieves the health of the prediction. Specifically, it checks if the model exists in the model path.
 
@@ -287,7 +285,7 @@ curl http://localhost:8000/health
 {"status":"healthy"}%  
 ```
 
-#### GET stats
+### GET stats
 
 This relates to monitoring the latency of the service. The are logs related to the API service is available on `out/api_logs`. The `api_requests.json` logs all the requests received by the API, while the `basic_stats.json` updates the statistics related to the latency and the responses returned by the service.
 
@@ -307,9 +305,7 @@ curl http://localhost:8000/stats
 {"last_updated":"2025-05-22 11:12:15","total_requests":1,"sentiment_counts":{"Positive":0,"Neutral":0,"Negative":1},"avg_response_time_ms":237.18738555908203,"p99_response_time_ms":237.18738555908203}% 
 ```
 
-## Unit Tests
-
-### Unit Tests for Sentiment Analyser Model
+## Unit tests
 
 The following unit tests are created for the sentiment analyser model:
 
@@ -341,7 +337,7 @@ tests/test_text_preprocessor.py ..                                              
 
 ```
 
-## Improving the Latency
+## Improving latency
 
 When I first tested my Inference service, the API was agonisingly slow:
 
@@ -384,12 +380,12 @@ Now, the basic stats show that the 99p latency has been less than 50ms:
 }
 ```
 
-## Extending this Solution
+## Extending this solution
 
-1. Use a more lightweight (and explore better) models (ie distilled BERT or XGBoost) and improve preprocessing (find nltk alternative)
-2. Introduce Cloud services (AWS Lambda, S3 buckets, GCP Vertex AI, GCS, Cloud Function)
-3. Improve on scalability by introducing more async tasks or batch processing for high-load situations
-4. Implement MLflow for a more comprehensive training tracking (model and artefact registry)
-5. Introduce CI/CD (add Github Actions to build images and push it to Docker registry, deploy to cloud environment, etc)
-6. Enhance monitoring and logging by adding other relevant metrics like data drift, data quality or performance and using a more comprehensive Python library (eg Evidently)
-7. Improve API security (HTTPS) and add authentication layer (JWT)
+1. Use a more **lightweight** (and explore better) models (ie distilled BERT or XGBoost) and improve preprocessing (find nltk alternative)
+2. Introduce **Cloud services** (AWS Lambda, S3 buckets, GCP Vertex AI, GCS, Cloud Function)
+3. Improve on scalability by introducing more **async tasks** or **batch processing** for high-load situations
+4. Implement **MLflow** for a more comprehensive training tracking (model and artefact registry)
+5. Introduce **CI/CD pipelines** for streamlined deployment (add Github Actions to build images and push it to Docker registry, deploy to cloud environment, etc)
+6. Enhance monitoring and logging by adding **other relevant metrics** like **data drift**, **data quality** and using a more comprehensive ML monitoring library like **Evidently** 
+7. Improve **API security** (HTTPS) and add **authentication layer** (JWT)
