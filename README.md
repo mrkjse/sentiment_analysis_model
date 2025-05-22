@@ -279,7 +279,9 @@ curl http://localhost:8000/health
 
 #### GET stats
 
-This relates to monitoring the latency of the service. It returns the following information:
+This relates to monitoring the latency of the service. There logs related to the API service is available on `out/api_logs`. The `api_requests.json` logs all the requests received by the API, while the `basic_stats.json` updates the statistics related to the latency and the responses returned by the service.
+
+When requested, it returns the following information (from `basic_stats.json`):
 
 - `last_updated`: the last time the API received a request
 - `total_requests`: the total number of requests received (since the server has been running)
@@ -295,11 +297,6 @@ curl http://localhost:8000/stats
 {"last_updated":"2025-05-22 11:12:15","total_requests":1,"sentiment_counts":{"Positive":0,"Neutral":0,"Negative":1},"avg_response_time_ms":237.18738555908203,"p99_response_time_ms":237.18738555908203}% 
 ```
 
-### API monitoring
-
-There logs related to the API service is available on `out/api_logs`. The `api_requests.json` logs all the requests received by the API, while the `basic_stats.json` updates the statistics related to the latency and the responses returned by the service.
-
-
 ## Unit Tests
 
 ### Unit Tests for Sentiment Analyser Model
@@ -312,7 +309,7 @@ The following unit tests are created for the sentiment analyser model:
 
 To run the unit tests: 
 
-```
+```bash
 poetry run python -m pytest
 ```
 
@@ -369,3 +366,6 @@ The things I did to improve the latency are:
 3. Introduce threading and parallelism on some operations (eg I/O ops)
 4. Introduce more in-memory caching 
 5. Use asynchronous logging 
+6. Store the training artefacts (models, logs) in a PostgreSQL database or in a Cloud bucket
+7. Implement MLflow for a more comprehensive model tracking 
+8. Serve the API service and the training pipeline as a Cloud Function (or in a Cloud Kubernetes Engine)
