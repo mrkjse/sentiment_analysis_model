@@ -363,9 +363,8 @@ The things I did to improve the latency are:
 
 1. Use a more lightweight (and explore better) models (ie distilled BERT or XGBoost)
 2. Improve preprocessing (find nltk alternative)
-3. Introduce threading and parallelism on some operations (eg I/O ops)
-4. Introduce more in-memory caching 
-5. Use asynchronous logging 
-6. Store the training artefacts (models, logs) in a PostgreSQL database or in a Cloud bucket
-7. Implement MLflow for a more comprehensive model tracking 
-8. Serve the API service and the training pipeline as a Cloud Function (or in a Cloud Kubernetes Engine)
+3. Introduce threading and parallelism on some operations (eg I/O ops; but I still have to look into this...)
+4. Introduce in-memory caching (still have to look into this...)
+5. Store the training artefacts (models, logs) in a PostgreSQL database or in a Cloud bucket
+6. Implement MLflow for a more comprehensive model tracking 
+7. Serve the API service and the training pipeline as a Cloud Function (or in a Cloud Kubernetes Engine)
