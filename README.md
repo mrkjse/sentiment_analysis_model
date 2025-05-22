@@ -358,6 +358,21 @@ The things I did to improve the latency are:
 - Streamlined inference text preprocessing (removed lemmatisation of words) without sacrificing model accuracy
 - Opted to use to fastAPI (than Flask) for asynchronous support
 
+Now, the basic stats show that the 99p latency has been less than 50ms:
+
+```json
+{
+  "last_updated": "2025-05-21 20:16:34",
+  "total_requests": 4,
+  "sentiment_counts": {
+    "Positive": 1,
+    "Neutral": 1,
+    "Negative": 2
+  },
+  "avg_response_time_ms": 34.45667028427124,
+  "p99_response_time_ms": 42.2948431968689
+}
+```
 
 ## Extending this Solution
 
