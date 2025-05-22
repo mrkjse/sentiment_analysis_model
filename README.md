@@ -12,11 +12,11 @@ The solution is Dockerised. There are two Docker containers provided:
 To run this in your local, simply run the bash script `run.sh`.
 
 ```bash
-# Make sure you are in the root folder
+# Make sure you are in the root folder and that your Docker daemon is running
 ./run.sh
 ```
 
-If you do not have Docker, you may opt to set up the Python environment via `poetry` on your local and run the scripts.
+If you do not have Docker, you may opt to set up the Python environment (Python 3.10.15) via `poetry` on your local and run the scripts.
 
 ```bash
 pip install poetry
@@ -179,7 +179,33 @@ You should also find some inference logs via `out/monitoring/inference_log.json`
   }
 ```
 
+If the fastAPI service is initiated successfully, you should find the following logs:
 
+```bash
+INFO:     Will watch for changes in these directories: ['/app']
+
+INFO:     Uvicorn running on http://0.0.0.0:8000⁠ (Press CTRL+C to quit)
+```
+
+The following logs are available in the server side to keep track of the API service:
+
+```bash
+INFO:     192.168.65.1:41052 - "POST /predict HTTP/1.1" 200 OK
+
+{'sentiment': 'Negative', 'confidence': {'Negative': 0.7760943313811863, 'Neutral': 0.09809587227165027, 'Positive': 0.12580979634716324}}
+
+0.06581521034240723
+
+INFO:     192.168.65.1:61341 - "POST /predict HTTP/1.1" 200 OK
+
+INFO:     192.168.65.1:28390 - "GET /stats HTTP/1.1" 200 OK
+
+2025-05-21 14:03:22,983 - sentiment_analysis_model.utils - INFO - Looking for basic_stats.json in {api_logger.log_dir}
+
+{'sentiment': 'Negative', 'confidence': {'Negative': 0.9742071912761567, 'Neutral': 0.012426318891836131, 'Positive': 0.013366489832007073}}
+
+0.056195735931396484
+```
 
 ## Sentiment Analyser Model
 
