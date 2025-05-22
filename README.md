@@ -284,8 +284,8 @@ This relates to monitoring the latency of the service. It returns the following 
 - `last_updated`: the last time the API received a request
 - `total_requests`: the total number of requests received (since the server has been running)
 - `sentiment_counts`: the distribution of the predicted sentiments
-- `avg_response_time_ms`: the average response time in microseconds
-- `p99_response_time_ms`: the 99th percentile of the response time in microseconds
+- `avg_response_time_ms`: the average response time in milliseconds
+- `p99_response_time_ms`: the 99th percentile of the response time in milliseconds
 
 ```bash
 curl http://localhost:8000/stats 
