@@ -19,13 +19,14 @@ nltk = "*"
 # Only essential visualization and logging
 matplotlib = "*"
 loguru = "*"
+pytest = "*"
 
 # Development dependencies are now optional
 [tool.poetry.group.dev]
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-pytest = "*"
+
 
 [build-system]
 requires = ["poetry-core"]
