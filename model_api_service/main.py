@@ -17,14 +17,15 @@ from sentiment_analysis_model.sentiment_analyser import SentimentAnalyser
 
 app = FastAPI(title="Sentiment Analysis API")
 
+# Initialise the location of the model, preprocessor, and logs
+# We will use these to load the model and the monitor the logs when there's a new request
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_PATH = os.path.join(base_dir, "out", "model.joblib")
 PREPROCESSOR_PATH = os.path.join(base_dir, "out", "preprocessor.joblib")
 API_LOGS_PATH = os.path.join(base_dir, "out", "api_logs")
 
 sentiment_analyser = None
-api_logger = None  # Initialise APILogger
-
+api_logger = None 
 logger = setup_logging()
 
 # Load SentimentAnalyser upon startup
@@ -37,7 +38,7 @@ async def startup_event():
             preprocessor_path=PREPROCESSOR_PATH
         )
 
-        # Initialise the simple logger
+        # Initialise a simple logger
         api_logger = APILogger(log_dir=API_LOGS_PATH)
         logger.info(f"API logger initialised. Log directory: {API_LOGS_PATH}")
         logger.info("Sentiment analyser loaded successfully")
@@ -58,7 +59,7 @@ async def predict_sentiment(request: SentimentRequest):
         # Measure response time
         start_time = time.time()
         
-        # Make prediction
+        # Perform the inference
         result = sentiment_analyser.predict(request.text)
 
         print(result)
@@ -95,19 +96,24 @@ async def health_check():
 
 @app.get("/stats")
 async def get_stats():
-    """Get basic API usage statistics."""
+    """
+    Prints the basic API statistics.
+
+    Created this so we could monitor the average response time and the 99% percentile latency.
+    """
     if api_logger is None:
         raise HTTPException(status_code=503, detail="Logger not initialized")
     
     try:
-        # Check if stats file exists
+        # Check if basic_stats.json file exists
         stats_file = os.path.join(api_logger.log_dir, "basic_stats.json")
         logger.info("Looking for basic_stats.json in {api_logger.log_dir}")
 
         if not os.path.exists(stats_file):
             return {"message": "No stats available yet"}
         
-        # Read and return stats
+        # Read the file and return the stats like avg. response time and 99p response time
+        # as well the the sentiment distribution and number of requests received.
         with open(stats_file, 'r') as f:
             stats = json.load(f)
         
@@ -118,5 +124,4 @@ async def get_stats():
 
 
 if __name__ == "__main__":
-    print(f"Current working directory: {os.getcwd()}")
     uvicorn.run("model_api_service.main:app", host="0.0.0.0", port=8000, reload=True)

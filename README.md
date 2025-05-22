@@ -102,6 +102,11 @@ curl -X POST "http://localhost:8000/predict" \
   -H "Content-Type: application/json" \
   -d '{"text": "i love the story so much!"}'
 
+
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "the book was so so"}'
+
 curl http://localhost:8000/health
 
 curl http://localhost:8000/stats
@@ -210,6 +215,7 @@ This would be my recommended ML Pipeline structure:
 ## Things I did to improve latency
 
 - Created a lightweight version of the model (from RandomisedSearchCV to RandomForestClassifier with pruned down hyperparameters)
+- Removed extra NLTK resources (lemmatiser)
 - Implemented lrucache (Least Recently Used Cache) that helps on memory management
 - Streamlined inference text preprocessing (removed lemmatisation of words) without sacrificing model accuracy
 

@@ -23,10 +23,7 @@ def split_data(X, y, test_size=0.2, random_state=43):
 
 
 def create_pipeline(n_estimators=100, max_depth=None, max_features='sqrt'):
-    """
-    Create scikit-learn pipeline with TF-IDF and RandomForest.
-    Returns a GridSearchCV object for parameter optimization.
-    """
+
     from sklearn.model_selection import RandomizedSearchCV
     from sklearn.pipeline import Pipeline
     from sklearn.feature_extraction.text import TfidfVectorizer
@@ -78,7 +75,29 @@ def create_pipeline(n_estimators=100, max_depth=None, max_features='sqrt'):
 
 
 def create_pipeline_lightweight(n_estimators=50, max_depth=10, max_features='sqrt'):
-    """Create scikit-learn pipeline with TF-IDF and RandomForest."""
+    """
+    Create scikit-learn pipeline with TF-IDF and RandomForest.
+
+    Parameters
+    ----------
+    n_estimators : 
+        The number of trees in the forest.
+    
+    max_depth : 
+        The maximum depth of each tree.
+    
+    max_features : 
+        The number of features considered when splitting the node. 
+        (e.g. sqrt selects the square root of the total features)
+
+
+    Returns
+    -------
+    pipeline : 
+        The model used for training.
+
+    """
+
     logger.info("Creating TF-IDF vectorizer and RandomForest model...")
     return Pipeline([
         ('tfidf', TfidfVectorizer(max_features=2000, ngram_range=(1, 2))),
@@ -91,10 +110,32 @@ def create_pipeline_lightweight(n_estimators=50, max_depth=10, max_features='sqr
         ))
     ])
 
+
 @timeit
 def train_model(X_train, y_train, pipeline=None, model_params=None):
     """
     Train a sentiment analysis model using RandomizedSearchCV to find optimal parameters.
+
+    Parameters
+    ----------
+    X_train : 
+        The training matrix.
+    
+    y_train : 
+        The training labels.
+    
+    pipeline : 
+        The training pipeline to create the model.
+
+    model_params :
+        The hyperparameters used for the model.
+
+
+    Returns
+    -------
+    pipeline : 
+        The trained model.
+
     """
     if pipeline is None:
         if model_params is None:
@@ -102,6 +143,7 @@ def train_model(X_train, y_train, pipeline=None, model_params=None):
         
         # Create a lightweight version of the model due to resource constraints
         # This will compromise the quality of the model...but need it to run Docker
+        # and to meet the 99p latency requirement
         pipeline = create_pipeline_lightweight(**model_params)
     
     # logger.info("Training model with RandomizedSearchCV...")
@@ -112,7 +154,30 @@ def train_model(X_train, y_train, pipeline=None, model_params=None):
 
 
 def save_model(model, preprocessor, output_dir):
-    """Save model and preprocessor to disk."""
+    """
+    Save model as a joblib file into the local disk.
+
+    Parameters
+    ----------
+    model : 
+        The trained model.
+    
+    preprocessor : TextPreprocessor
+        The text preprocessor used (to be applied to the inference data).
+    
+    output_dir : string
+        The location to dump both the trained model and its preprocessor.
+
+
+    Returns
+    -------
+    model_path : string
+        The full path where the model joblib is dumped.
+    
+    preprocessor_path : string
+        The full path where the text preprocessor joblib is dumped.
+
+    """
     create_directory(output_dir)
     
     # Save model

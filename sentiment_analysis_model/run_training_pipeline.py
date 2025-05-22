@@ -10,13 +10,36 @@ from sentiment_analysis_model.model_monitor import ModelMonitor
 
 
 def run_pipeline(data_path, output_dir, n_estimators=100, max_depth=None, max_features='sqrt', test_size=0.2):
+    
+    """
+    Run the training pipeline.
+    
+
+    Parameters
+    ----------
+    data_path : str
+        The location of the training data.
+    
+    output_dir : str
+        The location where to dump the artifacts (model, preprocessor, logs, etc.)
+    
+
+
+    Returns
+    -------
+    results : dict 
+        Dictionary containing relevant information about the training.
+
+    """
+
+
     logger = logging.getLogger(__name__)
 
     intermediates_dir = os.path.join(output_dir, "intermediates")
     if not os.path.exists(intermediates_dir):
         os.makedirs(intermediates_dir)
     
-     # Initialize the monitor
+     # Initialise the monitor
     monitor = ModelMonitor(os.path.join(output_dir, "monitoring"))
 
     # Step 1: Load data

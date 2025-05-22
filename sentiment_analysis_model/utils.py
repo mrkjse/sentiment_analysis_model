@@ -15,6 +15,7 @@ def setup_logging():
     logger = logging.getLogger(__name__)
     return logger
 
+
 def download_nltk_resources():
     """Download necessary NLTK resources."""
     try:
@@ -25,9 +26,11 @@ def download_nltk_resources():
         logger.error(f"Error downloading NLTK resources: {e}")
         raise
 
+
 def create_directory(directory_path):
     """Create directory if it doesn't exist."""
     os.makedirs(directory_path, exist_ok=True)
+
 
 def convert_rating_to_sentiment(rating):
     """Convert numerical rating to sentiment label."""
@@ -38,11 +41,13 @@ def convert_rating_to_sentiment(rating):
     else:
         return 2  # Positive
 
+
 def timeit(func):
     """
     Decorator to measure the execution time of functions.
     
-    Usage:
+    Usage
+    -----
         @timeit
         def my_function():
             ...

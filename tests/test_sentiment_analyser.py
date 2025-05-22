@@ -63,7 +63,6 @@ class TestSentimentAnalyser(unittest.TestCase):
 
     
     def test_predict(self):
-        """Test the predict method returns correct format and values."""
         # Patch joblib.load
         with patch('joblib.load') as mock_load:
             # Configure mock_load to return our mock objects
@@ -76,7 +75,7 @@ class TestSentimentAnalyser(unittest.TestCase):
                     raise FileNotFoundError(f"Mock can't find file: {path}")
             mock_load.side_effect = load_side_effect
             
-            # Create analyzer
+            # Create analyser
             analyser = SentimentAnalyser(
                 model_path=self.model_path,
                 preprocessor_path=self.preprocessor_path

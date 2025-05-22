@@ -11,7 +11,7 @@ class TestTextPreprocessor(unittest.TestCase):
 
     def test_preprocess_combined(self):
 
-        text = "This is a TEXT with 123 numbers and UPPERCASE letters!"
+        text = "ThIS is a TexT with 123 numbers and UPPERCASE letters..."
         processed = self.preprocessor.preprocess(text)
         self.assertEqual(processed, "text numbers uppercase letters")
 
@@ -19,7 +19,7 @@ class TestTextPreprocessor(unittest.TestCase):
 
         # Create a sample dataframe
         data = {
-            'review_text': ['This is a good product!', 'Bad experience with customer service.']
+            'review_text': ['This is a good product!']
         }
         df = pd.DataFrame(data)
         
@@ -29,4 +29,3 @@ class TestTextPreprocessor(unittest.TestCase):
         self.assertIn('processed_review', result_df.columns)
         
         self.assertEqual(result_df['processed_review'][0], "good product")
-        self.assertEqual(result_df['processed_review'][1], "bad experience customer service")

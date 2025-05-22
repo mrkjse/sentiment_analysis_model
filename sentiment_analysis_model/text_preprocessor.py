@@ -18,6 +18,25 @@ class TextPreprocessor:
         self.stop_words = set(stopwords.words('english'))
 
     def preprocess(self, text):
+        """
+        Create a pipeline to breakdown the text into tokens.
+
+        Steps:
+        1. Convert all to lowercase
+        2. Remove special symbols and numbers
+        3. Remove stopwords (optional: lemmatise)
+
+        Parameters
+        ----------
+        text : str
+            The text to be broken down into tokens.
+        
+
+        Returns
+        -------
+        The cleaned text.
+        
+        """    
 
         text = str.lower(text)
         text = re.sub(r'[^\w\s]', '', text)
@@ -30,7 +49,7 @@ class TextPreprocessor:
 
 @timeit
 def preprocess_data(df, preprocessor=None):
-
+    """Apply the preprocessing pipeline above to the reviews."""
     if preprocessor is None:
         preprocessor = TextPreprocessor()
 

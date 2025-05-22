@@ -40,13 +40,28 @@ class ModelMonitor:
                 
         logger.info(f"Model monitor initialized in {output_dir}")
     
+
     def log_training_metrics(self, metrics, params=None):
         """
-        Log training metrics and parameters
+        Log training metrics for monitoring.
+
+        Parameters
+        ----------
+        self : 
+            The ModelMonitor instance.
         
-        Args:
-            metrics: Dict of metrics (e.g., {"accuracy": 0.85})
-            params: Dict of model parameters
+        metrics : dict
+            The dictionary of metrics and their corresponding scores.
+        
+        paarams : string
+            The dictionary of the hyperparameters of the model.
+
+
+        Returns
+        -------
+        metrics_entry: dict
+            The dictionary log containing the information provided.
+
         """
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
@@ -65,15 +80,33 @@ class ModelMonitor:
         
         return metrics_entry
     
+
     def log_prediction(self, text, prediction, confidence):
         """
-        Log a prediction for monitoring
+        Log a prediction for monitoring.
+
+        Parameters
+        ----------
+        self : 
+            The ModelMonitor instance.
         
-        Args:
-            text: Input text that was classified
-            prediction: Model prediction
-            confidence: Confidence scores
+        text : string
+            The text being predicted.
+        
+        prediction : string
+            The predicted label (Negative, Neutral, Positive).
+
+        confidence : dict
+            A dictionary of the label confidence scores.
+
+
+        Returns
+        -------
+        inference_entry: dict
+            The dictionary log containing the information provided.
+
         """
+
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
         # Log some info from inference

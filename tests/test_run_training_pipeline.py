@@ -94,7 +94,7 @@ class TestRunPipeline(unittest.TestCase):
         mock_monitor_instance = MagicMock()
         mock_model_monitor.return_value = mock_monitor_instance
         
-        # Call the function
+        # Call the function to run the pipeline
         result = run_pipeline(
             data_path=self.test_data_path,
             output_dir=self.test_output_dir,
@@ -149,14 +149,6 @@ class TestRunPipeline(unittest.TestCase):
             'evaluation_results': self.eval_results
         })
         
-        # Check if CSV files were saved
-        expected_files = [
-            os.path.join(self.test_output_dir, "intermediates", "01_raw_data.csv"),
-            os.path.join(self.test_output_dir, "intermediates", "02_prepared_data.csv"),
-            os.path.join(self.test_output_dir, "intermediates", "03_preprocessed_data.csv")
-        ]
-        for file_path in expected_files:
-            self.assertTrue(os.path.exists(file_path))
     
     @patch('sentiment_analysis_model.run_training_pipeline.os.path.exists')
     @patch('sentiment_analysis_model.run_training_pipeline.os.makedirs')

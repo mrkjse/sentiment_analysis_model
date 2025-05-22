@@ -8,6 +8,17 @@ from sentiment_analysis_model.model_monitor import ModelMonitor
 
 if __name__ == "__main__":
 
+    """
+    Run the prediction pipeline.
+    
+        Steps:
+        1. Initialise the ModelMonitor and load the model (SentimentAnalyser)
+        2. Preprocess the text using the TextPreprocessor created during training
+        3. Compute for the predicted probabilities
+        4. Log the predicted sentiment and the confidence
+
+    """
+
     # Parse command line arguments
     parser = argparse.ArgumentParser(description='Run Review Sentiment Analysis Inference Service')
     parser.add_argument('--model', required=True, help='Path to the trained model')
