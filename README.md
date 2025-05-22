@@ -279,7 +279,7 @@ curl http://localhost:8000/health
 
 #### GET stats
 
-This relates to monitoring the latency of the service. There logs related to the API service is available on `out/api_logs`. The `api_requests.json` logs all the requests received by the API, while the `basic_stats.json` updates the statistics related to the latency and the responses returned by the service.
+This relates to monitoring the latency of the service. The are logs related to the API service is available on `out/api_logs`. The `api_requests.json` logs all the requests received by the API, while the `basic_stats.json` updates the statistics related to the latency and the responses returned by the service.
 
 When requested, it returns the following information (from `basic_stats.json`):
 
