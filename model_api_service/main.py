@@ -99,7 +99,8 @@ async def get_stats():
     """
     Prints the basic API statistics.
 
-    Created this so we could monitor the average response time and the 99% percentile latency.
+    Created this so we could monitor the average response time and 
+    the 99% percentile response time latency.
     """
     if api_logger is None:
         raise HTTPException(status_code=503, detail="Logger not initialized")

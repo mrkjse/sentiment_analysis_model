@@ -34,6 +34,7 @@ class APILogger:
             except Exception as e:
                 print(f"Error loading existing logs: {e}")
     
+    
     def log_request(self, request_text, prediction, confidence, response_time):
         """Log an API request with its prediction and response time."""
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -72,6 +73,7 @@ class APILogger:
         except Exception as e:
             print(f"Error writing to log file: {e}")
     
+
     def _update_stats(self):
         """Update simple statistics about API usage."""
         try:
