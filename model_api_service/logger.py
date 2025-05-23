@@ -20,6 +20,19 @@ class APILogger:
         self.response_times = []  # Store response times
         
         print(f"Simple logger initialized in {log_dir}")
+
+         # Load recent requests from file if it exists
+        if os.path.exists(self.log_file):
+            try:
+                with open(self.log_file, 'r') as f:
+                    all_logs = json.load(f)
+                    # Take the last 100 entries
+                    recent_logs = all_logs[-100:] if len(all_logs) > 100 else all_logs
+                    self.recent_requests.extend(recent_logs)
+                    # Also restore response times
+                    self.response_times = [log['response_time_ms'] for log in recent_logs]
+            except Exception as e:
+                print(f"Error loading existing logs: {e}")
     
     def log_request(self, request_text, prediction, confidence, response_time):
         """Log an API request with its prediction and response time."""

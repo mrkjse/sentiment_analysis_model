@@ -1,0 +1,266 @@
+[
+  {
+    "timestamp": "2025-05-21 14:14:38",
+    "text": "reading it felt absolutely terrible",
+    "prediction": "Negative",
+    "response_time_ms": 1516.5529251098633
+  },
+  {
+    "timestamp": "2025-05-21 14:14:41",
+    "text": "reading it felt absolutely terrible",
+    "prediction": "Negative",
+    "response_time_ms": 76.9340991973877
+  },
+  {
+    "timestamp": "2025-05-21 14:14:48",
+    "text": "the book was so so",
+    "prediction": "Negative",
+    "response_time_ms": 29.655933380126953
+  },
+  {
+    "timestamp": "2025-05-21 14:17:33",
+    "text": "the book was so so",
+    "prediction": "Negative",
+    "response_time_ms": 1533.0898761749268
+  },
+  {
+    "timestamp": "2025-05-21 14:18:08",
+    "text": "the book was so so",
+    "prediction": "Negative",
+    "response_time_ms": 1525.2001285552979
+  },
+  {
+    "timestamp": "2025-05-21 14:18:22",
+    "text": "it was extremely gratifying!!! I would want to rea...",
+    "prediction": "Negative",
+    "response_time_ms": 29.239177703857422
+  },
+  {
+    "timestamp": "2025-05-21 14:27:22",
+    "text": "reading it felt absolutely terrible",
+    "prediction": "Negative",
+    "response_time_ms": 1498.866081237793
+  },
+  {
+    "timestamp": "2025-05-21 14:30:37",
+    "text": "the book was so so",
+    "prediction": "Negative",
+    "response_time_ms": 39.978742599487305
+  },
+  {
+    "timestamp": "2025-05-21 14:30:59",
+    "text": "reading it felt absolutely terrible",
+    "prediction": "Negative",
+    "response_time_ms": 29.09111976623535
+  },
+  {
+    "timestamp": "2025-05-21 14:31:13",
+    "text": "reading it felt absolutely terrible",
+    "prediction": "Negative",
+    "response_time_ms": 0.023126602172851562
+  },
+  {
+    "timestamp": "2025-05-21 14:31:25",
+    "text": "it was extremely gratifying!!! I would want to rea...",
+    "prediction": "Negative",
+    "response_time_ms": 28.458118438720703
+  },
+  {
+    "timestamp": "2025-05-21 14:38:24",
+    "text": "it was extremely gratifying!!! I would want to rea...",
+    "prediction": "Negative",
+    "response_time_ms": 48.02989959716797
+  },
+  {
+    "timestamp": "2025-05-21 14:38:39",
+    "text": "reading it felt absolutely terrible",
+    "prediction": "Negative",
+    "response_time_ms": 28.809070587158203
+  },
+  {
+    "timestamp": "2025-05-21 14:38:53",
+    "text": "reading it felt absolutely terrible",
+    "prediction": "Negative",
+    "response_time_ms": 0.03886222839355469
+  },
+  {
+    "timestamp": "2025-05-21 14:40:57",
+    "text": "reading it felt absolutely terrible",
+    "prediction": "Negative",
+    "response_time_ms": 42.94013977050781
+  },
+  {
+    "timestamp": "2025-05-21 14:43:10",
+    "text": "i love the story so much!",
+    "prediction": "Positive",
+    "response_time_ms": 50.72903633117676
+  },
+  {
+    "timestamp": "2025-05-21 14:54:41",
+    "text": "reading it felt absolutely terrible",
+    "prediction": "Negative",
+    "response_time_ms": 42.7861213684082
+  },
+  {
+    "timestamp": "2025-05-21 20:13:08",
+    "text": "the book was okay",
+    "prediction": "Neutral",
+    "response_time_ms": 42.51384735107422
+  },
+  {
+    "timestamp": "2025-05-21 20:13:42",
+    "text": "i love the story so much!",
+    "prediction": "Positive",
+    "response_time_ms": 31.36610984802246
+  },
+  {
+    "timestamp": "2025-05-21 20:13:55",
+    "text": "reading it felt absolutely terrible",
+    "prediction": "Negative",
+    "response_time_ms": 28.733015060424805
+  },
+  {
+    "timestamp": "2025-05-21 20:16:34",
+    "text": "the book was so so",
+    "prediction": "Negative",
+    "response_time_ms": 35.21370887756348
+  },
+  {
+    "timestamp": "2025-05-22 16:53:02",
+    "text": "it was extremely gratifying!!! I would want to rea...",
+    "prediction": "Negative",
+    "response_time_ms": 43.55192184448242
+  },
+  {
+    "timestamp": "2025-05-22 16:53:41",
+    "text": "i love LOVE love it so muchhh",
+    "prediction": "Positive",
+    "response_time_ms": 32.6230525970459
+  },
+  {
+    "timestamp": "2025-05-23 16:03:36",
+    "text": "i love LOVE love it so muchhh",
+    "prediction": "Positive",
+    "response_time_ms": 48.39301109313965
+  },
+  {
+    "timestamp": "2025-05-23 16:03:43",
+    "text": "it was alright i suppose.",
+    "prediction": "Negative",
+    "response_time_ms": 29.450178146362305
+  },
+  {
+    "timestamp": "2025-05-23 16:04:48",
+    "text": "I absolutely love this product! It exceeded all my...",
+    "prediction": "Positive",
+    "response_time_ms": 38.41686248779297
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "This is fantastic! Best purchase I have ever made.",
+    "prediction": "Positive",
+    "response_time_ms": 29.054880142211914
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "Amazing service and great quality. Highly recommen...",
+    "prediction": "Positive",
+    "response_time_ms": 28.90610694885254
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "I am so happy with the results. Perfect!",
+    "prediction": "Positive",
+    "response_time_ms": 28.76901626586914
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "Excellent work! Thank you so much.",
+    "prediction": "Positive",
+    "response_time_ms": 26.85403823852539
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "This is terrible! I hate everything about it.",
+    "prediction": "Negative",
+    "response_time_ms": 28.815746307373047
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "Worst experience ever. Complete waste of money.",
+    "prediction": "Negative",
+    "response_time_ms": 28.103113174438477
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "I am very disappointed and frustrated with this se...",
+    "prediction": "Negative",
+    "response_time_ms": 28.621912002563477
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "Awful quality. Would not recommend to anyone.",
+    "prediction": "Negative",
+    "response_time_ms": 27.22907066345215
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "This is broken and useless. Very upset.",
+    "prediction": "Negative",
+    "response_time_ms": 27.191162109375
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "It was alright I suppose.",
+    "prediction": "Negative",
+    "response_time_ms": 28.802156448364258
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "The product works as described. Nothing special.",
+    "prediction": "Negative",
+    "response_time_ms": 27.884721755981445
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "It is what it is. Average experience overall.",
+    "prediction": "Positive",
+    "response_time_ms": 27.31800079345703
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "The meeting was scheduled for 3 PM today.",
+    "prediction": "Negative",
+    "response_time_ms": 29.16407585144043
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "I received the package yesterday. It contains thre...",
+    "prediction": "Neutral",
+    "response_time_ms": 29.95610237121582
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "The weather is cloudy today with a chance of rain.",
+    "prediction": "Negative",
+    "response_time_ms": 28.859853744506836
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "",
+    "prediction": "Negative",
+    "response_time_ms": 27.83799171447754
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "Good bad good bad good bad.",
+    "prediction": "Positive",
+    "response_time_ms": 28.51700782775879
+  },
+  {
+    "timestamp": "2025-05-23 16:04:49",
+    "text": "This is AMAZING!!! But also terrible... I am confu...",
+    "prediction": "Negative",
+    "response_time_ms": 28.597116470336914
+  }
+]

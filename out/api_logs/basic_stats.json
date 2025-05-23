@@ -1,11 +1,11 @@
 {
-  "last_updated": "2025-05-22 16:53:41",
-  "total_requests": 2,
+  "last_updated": "2025-05-23 16:07:44",
+  "total_requests": 76,
   "sentiment_counts": {
-    "Positive": 1,
-    "Neutral": 0,
-    "Negative": 1
+    "Positive": 28,
+    "Neutral": 4,
+    "Negative": 44
   },
-  "avg_response_time_ms": 38.08748722076416,
-  "p99_response_time_ms": 43.44263315200806
+  "avg_response_time_ms": 7.240976157941316,
+  "p99_response_time_ms": 32.22692012786865
 }
