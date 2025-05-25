@@ -4,10 +4,14 @@
 # 1. Run the training pipeline and produce the model
 # 2. Start the API server
 
+# Stop any existing containers
+echo "Stopping any existing containers..."
+docker compose down
 
-# Run the training container first
-echo "Starting training container..."
-docker compose up training
+# Build and run the training container first
+echo "Building and starting training container..."
+echo "This may take a few minutes if images need to be rebuilt..."
+docker compose up --build --force-recreate training
 
 # Check if the training pipeline was completed successfully
 if [ $? -eq 0 ]; then
@@ -15,7 +19,7 @@ if [ $? -eq 0 ]; then
   echo "Starting API service..."
   
   # Start the API service
-  docker compose up -d api
+  docker compose up -d --build --force-recreate api
   echo "API service is running on http://localhost:8000"
 else
   echo "Training failed. Check logs for details."
