@@ -443,7 +443,7 @@ These are some of the features of this solution that make it (almost) production
 ## Extending this solution
 
 1. Use a more **lightweight** (and explore better) models (ie distilled BERT or XGBoost) and improve preprocessing (find nltk alternative)
-2. Introduce **Cloud services** - the design of the solution is similar to how a **Kubeflow Pipeline** operates via **Vertex AI** (AWS Lambda, S3 buckets, GCP Vertex AI, GCS, Cloud Function)
+2. Introduce **Cloud services** - **GCS cloud bucket** for storing data and artefacts, **GKE** to serve the API service, **Vertex AI** to manage the training pipeline
 3. Improve on scalability by introducing more **async tasks** or **batch processing** for high volume datasets
 4. Enhance the training pipeline by adding **other relevant components** like **data and prediction drift detection**, **data quality check**, **model explainability**, **model card creation** (among others) and using a more comprehensive ML monitoring library like **Evidently**
 5. Introduce **CI/CD pipelines** for streamlined deployment (add Github Actions to build images and push it to Docker registry, deploy to cloud environment, etc)
