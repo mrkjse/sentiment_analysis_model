@@ -124,6 +124,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run Review Sentiment Analysis Training Pipeline')
     parser.add_argument('--data', required=True, help='Path to the training data JSON')
     parser.add_argument('--output-dir', default='model', help='Directory to save the model')
+    # TODO: Add hyperparameters as CL arguments too
     args = parser.parse_args()
     
     results = run_pipeline(data_path=args.data, output_dir=args.output_dir)
