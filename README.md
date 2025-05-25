@@ -400,8 +400,8 @@ I made it a point to allow the scripts **to accept CL arguments** so it can be e
 
 The training pipeline was also designed in a way similar to how **Vertex AI Pipelines** are designed:
 
-- The pipeline is implemented using Python 3 (compatible with kfp)
-- Each component has its own script and ran on a container
+- The pipeline is implemented using **Python 3** (compatible with kfp) and the virtual env is managed via `poetry`
+- Each component **is its own script** that can be **ran on a container**
 
 ```bash
 ├── sentiment_analysis_model
@@ -417,8 +417,8 @@ The training pipeline was also designed in a way similar to how **Vertex AI Pipe
 │   └── utils.py
 ```
 
-- Some of the relevant training pipeline components are present (data loading, feature preprocessing, data split, model training, model evaluation)
-- Training pipeline outputs (model, text preprocessor) as well as intermediate outputs (like data frames) are served as artefacts 
+- Some of the **relevant ML pipeline components** are present (data loading, feature preprocessing, data split, model training, model evaluation)
+- **Final outputs** (model, text preprocessor) as well as **intermediate outputs** (like data frames) are saved as **artefacts** 
 
 ```bash
 ├── out
@@ -439,8 +439,7 @@ The training pipeline was also designed in a way similar to how **Vertex AI Pipe
 │   └── preprocessor.joblib
 ```
 
-- Robust model monitoring and metadata 
-- Python environment is handled using `poetry` to make it maintanable
+- Robust **model monitoring** and **metadata handling**
 
 ## Extending this solution
 
