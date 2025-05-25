@@ -401,10 +401,10 @@ I made it a point to allow the scripts **to accept CL arguments** so it can be e
 The training pipeline was also designed in a way similar to how **Vertex AI Pipelines** are designed:
 
 - The pipeline is implemented using Python 3 (compatible with kfp)
+- Each component has its own script and ran on a container
 - Some of the relevant training pipeline components are present (data loading, feature preprocessing, data split, model training, model evaluation)
 - Training pipeline outputs (model, text preprocessor) are served as artefacts 
 - Robust model monitoring and metadata 
-- Each component is ran on a container
 - Python environment is handled using `poetry` to make it maintanable
 
 ## Extending this solution
