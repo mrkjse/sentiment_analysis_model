@@ -402,8 +402,43 @@ The training pipeline was also designed in a way similar to how **Vertex AI Pipe
 
 - The pipeline is implemented using Python 3 (compatible with kfp)
 - Each component has its own script and ran on a container
+
+```bash
+├── sentiment_analysis_model
+│   ├── __init__.py
+│   ├── data_loader.py
+│   ├── model_evaluator.py
+│   ├── model_monitor.py
+│   ├── model_trainer.py
+│   ├── run_prediction.py
+│   ├── run_training_pipeline.py
+│   ├── sentiment_analyser.py
+│   ├── text_preprocessor.py
+│   └── utils.py
+```
+
 - Some of the relevant training pipeline components are present (data loading, feature preprocessing, data split, model training, model evaluation)
-- Training pipeline outputs (model, text preprocessor) as well as intermediate outputs (like dataframes) are served as artefacts 
+- Training pipeline outputs (model, text preprocessor) as well as intermediate outputs (like data frames) are served as artefacts 
+
+```bash
+├── out
+│   ├── .DS_Store
+│   ├── api_logs
+│   │   ├── api_requests_old.json
+│   │   ├── api_requests.json
+│   │   └── basic_stats.json
+│   ├── intermediates
+│   │   ├── 01_raw_data.csv
+│   │   ├── 02_prepared_data.csv
+│   │   └── 03_preprocessed_data.csv
+│   ├── model.joblib
+│   ├── monitoring
+│   │   ├── inference_log.json
+│   │   ├── metrics_history.json
+│   │   └── plots
+│   └── preprocessor.joblib
+```
+
 - Robust model monitoring and metadata 
 - Python environment is handled using `poetry` to make it maintanable
 
