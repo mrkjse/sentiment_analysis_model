@@ -395,13 +395,10 @@ Now, the basic stats show that the 99p latency has been less than 50ms:
 
 ## Deploying to Production
 
-As the solution is Dockerised, one can easily deploy this as a **(GCP) Cloud Function**. 
-I made it a point to allow the scripts **to accept CL arguments** so it can be easily integrated into a CI/CD pipeline as well.
+These are some of the features of this solution that make it (almost) production-ready:
 
-The training pipeline was also designed in a way similar to how **Vertex AI Pipelines** are designed:
-
-- The pipeline is implemented using **Python 3** (compatible with kfp) and the virtual env is managed via `poetry`
-- Each component **is its own script** that can be **ran on a container**
+- The solution is **Dockerised** ensuring that it is machine-agnostic and can be ran on any Cloud platform (eg GCP Cloud Function, GCP Kubernetes Engine, serverless platforms...)
+- The training pipeline was also designed in a way similar to how **Vertex AI Pipelines** are designed: Each component **is its own script** that can **run on a container**
 
 ```bash
 ├── sentiment_analysis_model
@@ -441,6 +438,7 @@ The training pipeline was also designed in a way similar to how **Vertex AI Pipe
 
 - Robust **model monitoring** and **metadata handling**
 - The `run.sh` bash script can be integrated in a **CI/CD pipeline**
+
 
 ## Extending this solution
 
