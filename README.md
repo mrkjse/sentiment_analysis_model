@@ -397,8 +397,8 @@ Now, the basic stats show that the 99p latency has been less than 50ms:
 
 These are some of the features of this solution that make it (almost) production-ready:
 
-- The solution is **Dockerised** ensuring that it is machine-agnostic and can be ran on any Cloud platform (eg GCP Cloud Function, GCP Kubernetes Engine, serverless platforms...)
-- The training pipeline was also designed in a way similar to how **Vertex AI Pipelines** are designed: Each component **is its own script** that can **run on a container**
+- The solution is **Dockerised** ensuring that it can be ran on any Cloud platform (eg GCP Cloud Function, GCP Kubernetes Engine, serverless platforms...)
+- The training pipeline was also designed in a way similar to how **Vertex AI Pipelines** are designed
 
 ```bash
 ├── sentiment_analysis_model
@@ -414,7 +414,7 @@ These are some of the features of this solution that make it (almost) production
 │   └── utils.py
 ```
 
-- Some of the **relevant ML pipeline components** are present (data loading, feature preprocessing, data split, model training, model evaluation)
+- the most **relevant ML pipeline components** are present
 - **Final outputs** (model, text preprocessor) as well as **intermediate outputs** (like data frames) are saved as **artefacts** 
 
 ```bash
