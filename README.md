@@ -393,12 +393,26 @@ Now, the basic stats show that the 99p latency has been less than 50ms:
 }
 ```
 
+## Deploying to Production
+
+As the solution is Dockerised, one can easily deploy this as a **(GCP) Cloud Function**. 
+I made it a point to allow the scripts **to accept CL arguments** so it can be easily integrated into a CI/CD pipeline as well.
+
+The training pipeline was also designed in a way similar to how **Vertex AI Pipelines** are designed:
+
+- The pipeline is implemented using Python 3 (compatible with kfp)
+- Some of the relevant training pipeline components are present (data loading, feature preprocessing, data split, model training, model evaluation)
+- Training pipeline outputs (model, text preprocessor) are served as artefacts 
+- Robust model monitoring and metadata 
+- Each component is ran on a container
+- Python environment is handled using `poetry` to make it maintanable
+
 ## Extending this solution
 
 1. Use a more **lightweight** (and explore better) models (ie distilled BERT or XGBoost) and improve preprocessing (find nltk alternative)
 2. Introduce **Cloud services** - the design of the solution is similar to how a **Kubeflow Pipeline** operates via **Vertex AI** (AWS Lambda, S3 buckets, GCP Vertex AI, GCS, Cloud Function)
-3. Improve on scalability by introducing more **async tasks** or **batch processing** for high-load situations
-4. Implement **MLflow** for a more comprehensive training tracking (model and artefact registry)
+3. Improve on scalability by introducing more **async tasks** or **batch processing** for high volume datasets
+4. Enhance the training pipeline by adding **other relevant components** like **data and prediction drift detection**, **data quality check**, **model explainability**, **model card creation** (among others) and using a more comprehensive ML monitoring library like **Evidently**
 5. Introduce **CI/CD pipelines** for streamlined deployment (add Github Actions to build images and push it to Docker registry, deploy to cloud environment, etc)
-6. Enhance the training pipeline by adding **other relevant pipeline components** like **data and prediction drift detection**, **data quality check**, **model explainability**, **model card creation** (among others) and using a more comprehensive ML monitoring library like **Evidently** 
-7. Improve **API security** (HTTPS) and add **authentication layer** (JWT)
+6. Improve **API security** (HTTPS) and add **authentication layer** (JWT)
+7. (Optional) Implement **MLflow** for a more comprehensive model training tracking (can be applied during experimentation) 
