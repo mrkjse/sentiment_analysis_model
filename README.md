@@ -440,7 +440,7 @@ The training pipeline was also designed in a way similar to how **Vertex AI Pipe
 ```
 
 - Robust **model monitoring** and **metadata handling**
-- The `run.sh` bash script can easily be converted into a **CI/CD pipeline**.
+- The `run.sh` bash script can easily be converted into a **CI/CD pipeline**
 
 ## Extending this solution
 
