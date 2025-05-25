@@ -2,12 +2,122 @@
 
 This is a classifier that categorises review sentences into positive, neutral, and negative. The model is also being served via a FastAPI Inference service that allows a text to be classified with its corresponding confidences passed as well. 
 
+## Solution Design
+
+I divided this solution into two as it adheres to the separation of concern principles of software engineering:
+
+1. **Sentiment Analyser Training Pipeline** - parses the book reviews, trains the classifier model and outputs the model and the text preprocessor.
+
+2. **Sentiment Analyser API Service** - the API interface that uses the output model and text preprocessor and makes predictions via a POST HTTP request.
+
+This makes the solution easier to understand, maintain and deploy.
+The caveat at the moment is, its sharing the same Python environment, but we could easily separate these if needed.
+
+## Sentiment Analyser Training Pipeline
+
+### Dataset
+
+The dataset used is a sample of 10,000 book reviews from Amazon. 
+
+The training data is provided in JSON Lines format, with each line containing a valid JSON object with the following fields:
+- `text`: The review text content (required)
+- `rating`: Numerical rating (typically 1-5) (required)
+- `title` (optional): The title of the review
+- Additional fields are allowed and are preserved in the pipeline
+
+Example:
+```json
+{"rating": 1.0, "title": "For beginner Antique Jewellery Collectors Only!", "text": "Nothing new for a collector of Antique Jewellery! Pretty much all the pieces on this book have been in other Jewelry books!!!", "asin": "1788841581", "user_id": "AGBUJDDLRJIUJFTKPABJT6CJTHRQ", "verified_purchase": true}
+{"rating": 5.0, "title": "Excellent Product", "text": "This is a fantastic item that works exactly as described. Would definitely buy again!", "asin": "B00X4WHP5E", "user_id": "A3QK5MLWOJI3BG", "verified_purchase": true}
+{"rating": 3.0, "title": null, "text": "Average quality but good value for the price.", "asin": "B07H2VKSS8", "user_id": "AVNRT6QFR73JK", "verified_purchase": false}
+```
+
+### Model used
+
+The model used is a scikit-learn pipeline with TF-IDF and RandomForestClassifier. I tried incorporating the `review text` to train the model and the accuracy at best was `69%`, but when I included the `title` in the training, I was able to bump the accuracy to `72%`.
+
+```bash
+# Best accuracy I could make so far
+2025-05-22 16:48:55,886 - __main__ - INFO - Step 7: Saving model
+2025-05-22 16:48:55,935 - sentiment_analysis_model.model_trainer - INFO - Model saved to out/model.joblib
+2025-05-22 16:48:55,936 - sentiment_analysis_model.model_trainer - INFO - Preprocessor saved to out/preprocessor.joblib
+2025-05-22 16:48:55,936 - __main__ - INFO - Pipeline completed successfully!
+2025-05-22 16:48:55,936 - __main__ - INFO - Model saved to: out/model.joblib
+2025-05-22 16:48:55,936 - __main__ - INFO - Model accuracy: 0.7165
+```
+
+### Model monitoring
+
+The following information is logged upon model training:
+
+- `timestamp`: the time when the model was created
+- `metrics`: the metrics score of the model when evaluated against the test set (e.g. the accuracy, confusion matrix, precision, recall, f1-score)
+- `parameters`: the hyperparameters used for the model
+
+
+## Sentiment Analyser API Service
+
+I created a FastAPI service to serve model predictions via API. 
+
+### POST predict
+
+This loads the trained model and performs the inference. The only parameter needed is `text`, which is a collection of text to be classified as negative, neutral, or positive.
+
+
+```bash
+# Sample POST request
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "i love LOVE love it so muchhh"}'
+```
+The response includes the predicted sentiment and the corresponding confidences.
+
+``` json
+# API response
+{"review":"i love LOVE love it so muchhh","sentiment":"Positive","confidence":{"Negative":0.01,"Neutral":0.006666666666666666,"Positive":0.9833333333333333}}%                                                             
+```
+
+### GET health
+
+This API service retrieves the health of the prediction. Specifically, it checks if the model exists in the model path.
+
+```bash
+# Sample GET request
+curl http://localhost:8000/health
+```
+
+```json
+# Curl response
+{"status":"healthy"}%  
+```
+
+### GET stats
+
+This relates to monitoring the latency of the service. The are logs related to the API service is available on `out/api_logs`. The `api_requests.json` logs all the requests received by the API, while the `basic_stats.json` updates the statistics related to the latency and the responses returned by the service.
+
+When requested, it returns the following information (from `basic_stats.json`):
+
+- `last_updated`: the last time the API received a request
+- `total_requests`: the total number of requests received (since the server has been running)
+- `sentiment_counts`: the distribution of the predicted sentiments
+- `avg_response_time_ms`: the average response time in milliseconds
+- `p99_response_time_ms`: the 99th percentile of the response time in milliseconds
+
+```bash
+curl http://localhost:8000/stats 
+```
+
+```json
+{"last_updated":"2025-05-22 11:12:15","total_requests":1,"sentiment_counts":{"Positive":0,"Neutral":0,"Negative":1},"avg_response_time_ms":237.18738555908203,"p99_response_time_ms":237.18738555908203}% 
+```
+
+
 ## Running locally
 
 The solution is Dockerised. There are two Docker containers provided:
 
-- one for the training and prediction service
-- another for the API service (fastAPI)
+- one for the Sentiment Analyser Training Pipeline
+- another for the Sentiment Analyser API Service
 
 To run this in your local, simply run the bash script `run.sh`.
 
@@ -207,103 +317,6 @@ INFO:     192.168.65.1:28390 - "GET /stats HTTP/1.1" 200 OK
 0.056195735931396484
 ```
 
-## Sentiment Analyser Model
-
-### Dataset
-
-The dataset used is a sample of 10,000 books from Amazon. 
-
-The training data is provided in JSON Lines format, with each line containing a valid JSON object with the following fields:
-- `text`: The review text content (required)
-- `rating`: Numerical rating (typically 1-5) (required)
-- `title` (optional): The title of the review
-- Additional fields are allowed and are preserved in the pipeline
-
-Example:
-```json
-{"rating": 1.0, "title": "For beginner Antique Jewellery Collectors Only!", "text": "Nothing new for a collector of Antique Jewellery! Pretty much all the pieces on this book have been in other Jewelry books!!!", "asin": "1788841581", "user_id": "AGBUJDDLRJIUJFTKPABJT6CJTHRQ", "verified_purchase": true}
-{"rating": 5.0, "title": "Excellent Product", "text": "This is a fantastic item that works exactly as described. Would definitely buy again!", "asin": "B00X4WHP5E", "user_id": "A3QK5MLWOJI3BG", "verified_purchase": true}
-{"rating": 3.0, "title": null, "text": "Average quality but good value for the price.", "asin": "B07H2VKSS8", "user_id": "AVNRT6QFR73JK", "verified_purchase": false}
-```
-
-### Model used
-
-The model used is a scikit-learn pipeline with TF-IDF and RandomForestClassifier. I tried incorporating the `review text` to train the model and the accuracy at best was `69%`, but when I included the `title` in the training, I was able to bump the accuracy to `72%`.
-
-```bash
-# Best accuracy I could make so far
-2025-05-22 16:48:55,886 - __main__ - INFO - Step 7: Saving model
-2025-05-22 16:48:55,935 - sentiment_analysis_model.model_trainer - INFO - Model saved to out/model.joblib
-2025-05-22 16:48:55,936 - sentiment_analysis_model.model_trainer - INFO - Preprocessor saved to out/preprocessor.joblib
-2025-05-22 16:48:55,936 - __main__ - INFO - Pipeline completed successfully!
-2025-05-22 16:48:55,936 - __main__ - INFO - Model saved to: out/model.joblib
-2025-05-22 16:48:55,936 - __main__ - INFO - Model accuracy: 0.7165
-```
-
-### Model monitoring
-
-The following information is logged upon model training:
-
-- `timestamp`: the time when the model was created
-- `metrics`: the metrics score of the model when evaluated against the test set (e.g. the accuracy, confusion matrix, precision, recall, f1-score)
-- `parameters`: the hyperparameters used for the model
-
-
-## Sentiment Analyser API Service
-
-I created a slim version of a fastAPI service to serve model predictions via API. 
-
-### POST predict
-
-This loads the trained model and performs the inference. The only parameter needed is `text`, which is a collection of text to be classified as negative, neutral, or positive.
-
-
-```bash
-# Sample POST request
-curl -X POST "http://localhost:8000/predict" \
-  -H "Content-Type: application/json" \
-  -d '{"text": "i love LOVE love it so muchhh"}'
-```
-The response includes the predicted sentiment and the corresponding confidences.
-
-``` json
-# API response
-{"review":"i love LOVE love it so muchhh","sentiment":"Positive","confidence":{"Negative":0.01,"Neutral":0.006666666666666666,"Positive":0.9833333333333333}}%                                                             
-```
-
-### GET health
-
-This API service retrieves the health of the prediction. Specifically, it checks if the model exists in the model path.
-
-```bash
-# Sample GET request
-curl http://localhost:8000/health
-```
-
-```json
-# Curl response
-{"status":"healthy"}%  
-```
-
-### GET stats
-
-This relates to monitoring the latency of the service. The are logs related to the API service is available on `out/api_logs`. The `api_requests.json` logs all the requests received by the API, while the `basic_stats.json` updates the statistics related to the latency and the responses returned by the service.
-
-When requested, it returns the following information (from `basic_stats.json`):
-
-- `last_updated`: the last time the API received a request
-- `total_requests`: the total number of requests received (since the server has been running)
-- `sentiment_counts`: the distribution of the predicted sentiments
-- `avg_response_time_ms`: the average response time in milliseconds
-- `p99_response_time_ms`: the 99th percentile of the response time in milliseconds
-
-```bash
-curl http://localhost:8000/stats 
-```
-
-```json
-{"last_updated":"2025-05-22 11:12:15","total_requests":1,"sentiment_counts":{"Positive":0,"Neutral":0,"Negative":1},"avg_response_time_ms":237.18738555908203,"p99_response_time_ms":237.18738555908203}% 
-```
 
 ## Unit tests
 
@@ -383,9 +396,9 @@ Now, the basic stats show that the 99p latency has been less than 50ms:
 ## Extending this solution
 
 1. Use a more **lightweight** (and explore better) models (ie distilled BERT or XGBoost) and improve preprocessing (find nltk alternative)
-2. Introduce **Cloud services** (AWS Lambda, S3 buckets, GCP Vertex AI, GCS, Cloud Function)
+2. Introduce **Cloud services** - the design of the solution is similar to how a **Kubeflow Pipeline** operates via **Vertex AI** (AWS Lambda, S3 buckets, GCP Vertex AI, GCS, Cloud Function)
 3. Improve on scalability by introducing more **async tasks** or **batch processing** for high-load situations
 4. Implement **MLflow** for a more comprehensive training tracking (model and artefact registry)
 5. Introduce **CI/CD pipelines** for streamlined deployment (add Github Actions to build images and push it to Docker registry, deploy to cloud environment, etc)
-6. Enhance monitoring and logging by adding **other relevant metrics** like **data drift**, **data quality** and using a more comprehensive ML monitoring library like **Evidently** 
+6. Enhance the training pipeline by adding **other relevant pipeline components** like **data and prediction drift detection**, **data quality check**, **model explainability**, **model card creation** (among others) and using a more comprehensive ML monitoring library like **Evidently** 
 7. Improve **API security** (HTTPS) and add **authentication layer** (JWT)
