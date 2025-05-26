@@ -141,9 +141,6 @@ poetry install
 # Run the training pipeline
 poetry run python -m sentiment_analysis_model.run_training_pipeline --data data/reviews.json --output-dir out/
 
-# Run the prediction pipeline (this will be available as an API as well)
-poetry run python -m sentiment_analysis_model.run_prediction --model out/model.joblib --preprocessor out/preprocessor.joblib --text 'the book was okay' 
-
 ```
 
 If successful, you should observe the following logs from the **training pipeline**:
@@ -261,7 +258,16 @@ You should also find some model monitoring logs in `out/monitoring/metrics_histo
     }
   },
 ```
-For the prediction pipeline, you should observe the following logs:
+For the prediction pipeline, run the following commands:
+
+```bash
+
+# Run the prediction pipeline (this will be available as an API as well)
+poetry run python -m sentiment_analysis_model.run_prediction --model out/model.joblib --preprocessor out/preprocessor.joblib --text 'the book was okay' 
+
+```
+
+You should observe the following logs:
 
 ```bash
 2025-05-22 12:05:17,325 - sentiment_analysis_model.model_monitor - INFO - Model monitor initialized in out/monitoring
